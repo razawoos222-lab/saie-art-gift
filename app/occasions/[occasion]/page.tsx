@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { PageShell } from "../../../components/PageShell";
+import { ProductCard } from "../../../components/ProductCard";
+import { products } from "../../../lib/products";
+const copy: Record<string, { title: string; text: string }> = { celebration: { title: "기쁜 시작을 축하하는 꽃", text: "새로운 문을 여는 날, 환하게 피어난 계절의 꽃으로 마음껏 축하를 건네세요." }, gratitude: { title: "고마운 마음을 위한 꽃", text: "쉽게 말하지 못했던 마음도 꽃과 함께라면 조금 더 다정하게 닿습니다." }, comfort: { title: "평범한 오늘의 다정한 안부", text: "특별한 이유가 없어도 괜찮아요. 당신을 생각했다는 마음을 전해 보세요." } };
+export default async function OccasionPage({ params }: { params: Promise<{ occasion: string }> }) { const { occasion } = await params; const content = copy[occasion] ?? copy.celebration; return <PageShell><main><section className="page-intro"><div className="container"><p className="eyebrow">For your moments</p><h1 className="display">{content.title}</h1><p>{content.text}</p></div></section><section className="container section"><div className="product-grid">{products.slice(0, 4).map((product) => <ProductCard key={product.slug} product={product} />)}</div><div style={{ marginTop: 45 }}><Link href="/contact" className="button">상황에 맞는 꽃 상담하기</Link></div></section></main></PageShell>; }
