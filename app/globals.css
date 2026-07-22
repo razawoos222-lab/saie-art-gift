@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./commerce.css";
 
 :root { --ink: #24372d; --forest: #244434; --rose: #a54c5d; --coral: #e77662; --cream: #fbf8f2; --sand: #eee8dd; --line: #ded8cc; }
 * { box-sizing: border-box; }

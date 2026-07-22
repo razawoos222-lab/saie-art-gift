@@ -20,3 +20,5 @@ npm run dev
 - `NEXT_PUBLIC_KAKAO_CHANNEL_URL`: 카카오톡 채널 주소
 
 실제 MOA 연동과 상담 저장은 다음 단계에서 해당 URL과 API 계약에 맞춰 연결합니다.
+
+회원 혜택과 전시 배송을 포함한 연동 요구사항은 [MOA 연동 PRD](docs/PRD-MOA-INTEGRATION.md)에 정리되어 있습니다.

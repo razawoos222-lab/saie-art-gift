@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "../components/CartContext";
 
 const sans = Noto_Sans_KR({ variable: "--font-sans", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 const serif = Noto_Serif_KR({ variable: "--font-serif", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
@@ -18,5 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="ko"><body className={`${sans.variable} ${serif.variable}`}>{children}</body></html>;
+  return <html lang="ko"><body className={`${sans.variable} ${serif.variable}`}><CartProvider>{children}</CartProvider></body></html>;
 }
