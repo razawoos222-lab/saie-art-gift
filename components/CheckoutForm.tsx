@@ -115,7 +115,10 @@ export function CheckoutForm() {
           <span>총 주문 금액</span>
           <strong>{formatPrice(total)}</strong>
         </div>
-        <p className="payment-notice">{content.paymentStatus}</p>
+        <p className="payment-notice">
+          {content.paymentProvider}: {content.paymentStatus}
+        </p>
+        <p className="payment-notice">{content.paymentDashboardNote}</p>
         <label className="consent">
           <input required type="checkbox" /> 주문 내용과 배송/환불 정책을 확인했습니다.
         </label>

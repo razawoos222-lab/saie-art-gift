@@ -19,6 +19,8 @@ export type SiteContent = {
   csKakao: string;
   csHours: string;
   paymentStatus: string;
+  paymentProvider: string;
+  paymentDashboardNote: string;
   discountPolicy: string;
   products: Product[];
   reviews: Review[];
@@ -43,6 +45,9 @@ export const defaultSiteContent: SiteContent = {
   csKakao: "@차화",
   csHours: "평일 10:00-18:00, 전시 오프닝 예약은 별도 상담",
   paymentStatus: "PG 심사 전입니다. 토스페이먼츠, KG이니시스, 나이스페이 중 선택 후 실제 결제를 연결합니다.",
+  paymentProvider: "토스페이먼츠",
+  paymentDashboardNote:
+    "실결제 활성화 후에는 결제 승인, 취소, 부분 환불, 현금영수증 발행 상태를 관리자에서 확인합니다.",
   discountPolicy: "모아 신규 회원 10% 할인, 차화 신규 가입 10% 적립 정책을 적용할 수 있도록 상품별 할인율을 분리 관리합니다.",
   products,
   reviews: [

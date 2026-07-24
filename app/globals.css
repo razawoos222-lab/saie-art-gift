@@ -50,7 +50,15 @@ a { color: inherit; text-decoration: none; } button, input, select, textarea { f
 .admin-products { display: grid; gap: 18px; }
 .admin-product { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
 .admin-product img { width: 110px; aspect-ratio: 1; object-fit: cover; background: var(--sand); }
+.admin-product-fields { display: grid; gap: 12px; }
 .admin-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.upload-control { display: inline-grid; gap: 5px; margin-top: 8px; padding: 10px 12px; border: 1px dashed var(--line); color: #536056; font-size: 12px; }
+.upload-control input { max-width: 100%; font-size: 12px; }
+.payment-table { align-self: start; border: 1px solid var(--line); background: #fffdf8; }
+.payment-row { display: grid; grid-template-columns: 1.25fr 1fr .75fr .75fr 1fr; gap: 14px; padding: 15px 18px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.payment-row:last-child { border-bottom: 0; }
+.payment-head { background: #e7ece3; color: var(--forest); font-weight: 700; }
+.payments-layout { grid-template-columns: 1fr 330px; }
 .admin-review { display: grid; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
 .admin-save { position: sticky; top: 96px; align-self: start; padding: 26px; background: var(--forest); color: white; }
 .admin-save p { color: #d8e0d7; }
@@ -61,7 +69,7 @@ a { color: inherit; text-decoration: none; } button, input, select, textarea { f
 
 @media (max-width: 760px) {
   .admin-link { display: none; }
-  .moa-feature, .policy-grid, .review-grid, .cs-grid, .admin-layout, .admin-product, .admin-two { grid-template-columns: 1fr; }
+  .moa-feature, .policy-grid, .review-grid, .cs-grid, .admin-layout, .admin-product, .admin-two, .payments-layout, .payment-row { grid-template-columns: 1fr; }
   .admin-layout { padding-top: 34px; }
   .admin-save { position: static; }
   .admin-product img { width: 100%; aspect-ratio: 4 / 3; }

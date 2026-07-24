@@ -1,10 +1,15 @@
 import { AdminConsole } from "../../components/AdminConsole";
 import { PageShell } from "../../components/PageShell";
+import { requireChatGPTUser } from "../chatgpt-auth";
 
-export default function AdminPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AdminPage() {
+  const user = await requireChatGPTUser("/admin");
+
   return (
     <PageShell>
-      <AdminConsole />
+      <AdminConsole userEmail={user.email} />
     </PageShell>
   );
 }

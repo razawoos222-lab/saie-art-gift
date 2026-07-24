@@ -1,4 +1,5 @@
 import { defaultSiteContent, normalizeSiteContent, type SiteContent } from "../../../lib/siteContent";
+import { getChatGPTUser } from "../../chatgpt-auth";
 
 const CONTENT_ID = "main";
 
@@ -45,6 +46,11 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  const user = await getChatGPTUser();
+  if (!user) {
+    return Response.json({ error: "관리자 로그인이 필요합니다." }, { status: 401 });
+  }
+
   const db = await getBinding();
   const payload = (await request.json()) as Partial<SiteContent>;
   const content = normalizeSiteContent(payload);

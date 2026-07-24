@@ -14,6 +14,9 @@ export function SiteHeader() {
         <Link href="/admin" className="admin-link">
           Admin
         </Link>
+        <Link href="/admin/payments" className="admin-link">
+          Payments
+        </Link>
         <Link href="/checkout" className="nav-action">
           주문
         </Link>
