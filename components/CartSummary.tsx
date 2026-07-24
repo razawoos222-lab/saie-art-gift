@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formatPrice, salePrice } from "../lib/products";
+import { displayPrice, formatPrice, salePrice } from "../lib/products";
 import { useCart } from "./CartContext";
 
 export function CartSummary() {
@@ -10,11 +10,11 @@ export function CartSummary() {
   if (!items.length) {
     return (
       <div className="empty-state">
-        <p className="eyebrow">Your cart</p>
-        <h1 className="section-title">아직 담긴 꽃이 없습니다.</h1>
-        <p>전시와 공간에 맞는 꽃선물을 골라 장바구니에 담아보세요.</p>
+        <p className="eyebrow">Selected gift</p>
+        <h1 className="section-title">아직 선택한 플라워가 없습니다.</h1>
+        <p>작가와 전시 공간에 어울리는 플라워 기프트를 선택해 주세요.</p>
         <Link href="/products" className="button">
-          꽃선물 보러 가기
+          플라워 라인업 보기
         </Link>
       </div>
     );
@@ -28,21 +28,13 @@ export function CartSummary() {
             <img src={product.image} alt="" />
             <div className="cart-item-copy">
               <h2>{product.name}</h2>
-              <p>{formatPrice(salePrice(product))}</p>
+              <p>{displayPrice(product)}</p>
               <div className="quantity">
-                <button
-                  type="button"
-                  onClick={() => updateQuantity(product.slug, quantity - 1)}
-                  aria-label={`${product.name} 수량 줄이기`}
-                >
+                <button type="button" onClick={() => updateQuantity(product.slug, quantity - 1)} aria-label={`${product.name} 수량 줄이기`}>
                   -
                 </button>
                 <span>{quantity}</span>
-                <button
-                  type="button"
-                  onClick={() => updateQuantity(product.slug, quantity + 1)}
-                  aria-label={`${product.name} 수량 늘리기`}
-                >
+                <button type="button" onClick={() => updateQuantity(product.slug, quantity + 1)} aria-label={`${product.name} 수량 늘리기`}>
                   +
                 </button>
               </div>
@@ -59,12 +51,12 @@ export function CartSummary() {
       <aside className="cart-total">
         <p className="eyebrow">Order summary</p>
         <div>
-          <span>상품 금액</span>
+          <span>선택 금액</span>
           <strong>{formatPrice(total)}</strong>
         </div>
         <div>
-          <span>배송비</span>
-          <strong>상담 후 안내</strong>
+          <span>배송/설치</span>
+          <strong>전시 정보 기준</strong>
         </div>
         <hr />
         <div className="cart-grand-total">
@@ -72,7 +64,7 @@ export function CartSummary() {
           <strong>{formatPrice(total)}</strong>
         </div>
         <Link href="/checkout" className="button">
-          주문서 작성하기
+          메시지 작성하기
         </Link>
       </aside>
     </div>

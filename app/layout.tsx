@@ -9,6 +9,7 @@ const sans = Noto_Sans_KR({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
+
 const serif = Noto_Serif_KR({
   variable: "--font-serif",
   subsets: ["latin"],
@@ -17,11 +18,11 @@ const serif = Noto_Serif_KR({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://chahwa.kr"),
-  title: "차화 | 모아 갤러리 꽃선물",
-  description: "전시 오프닝과 갤러리 공간에 맞춘 차화의 꽃선물 주문 사이트.",
+  title: "CHAHWA ART GIFT | 작가에게 꽃선물하기",
+  description: "모아 모바일초대장에 연결되는 갤러리 전용 플라워 기프트 서비스.",
   openGraph: {
-    title: "차화 | 모아 갤러리 꽃선물",
-    description: "전시 오프닝과 갤러리 공간에 맞춘 차화의 꽃선물 주문 사이트.",
+    title: "CHAHWA ART GIFT",
+    description: "작가의 순간에, 꽃으로 남기는 축하.",
     images: ["/og.png"],
   },
   twitter: { card: "summary_large_image" },

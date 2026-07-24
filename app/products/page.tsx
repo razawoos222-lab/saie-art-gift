@@ -5,13 +5,13 @@ export default function ProductsPage() {
   return (
     <PageShell>
       <main>
-        <section className="page-intro">
+        <section className="page-intro art-page-intro">
           <div className="container">
-            <p className="eyebrow">Flower gifts</p>
-            <h1 className="display">전시와 갤러리 공간에 맞춘 꽃선물</h1>
+            <p className="eyebrow">CHAHWA ART GIFT</p>
+            <h1 className="display">전시에 어울리는 세 가지 플라워 기프트</h1>
             <p>
-              모아 갤러리 전시 일정과 오프닝 현장을 고려한 상품군입니다. 실제 모아 연동 전까지는
-              주소를 직접 입력해 주문을 접수합니다.
+              많은 상품 중 고르는 쇼핑몰이 아니라, 작가와 전시 공간에 어울리는 몇 가지 선택지만
+              제안하는 큐레이션형 구조입니다.
             </p>
           </div>
         </section>

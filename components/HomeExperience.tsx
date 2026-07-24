@@ -1,112 +1,155 @@
 "use client";
 
 import Link from "next/link";
-import { ProductCard } from "./ProductCard";
+import { displayPrice } from "../lib/products";
 import { useSiteContent } from "./SiteContentContext";
 
 export function HomeExperience() {
   const { content } = useSiteContent();
+  const featured = content.products[1] ?? content.products[0];
 
   return (
-    <main>
-      <section className="notice-bar">{content.notice}</section>
-      <section className="hero">
-        <img className="hero-image" src={content.heroImage} alt="차화 갤러리 전용 꽃선물" />
-        <div className="hero-copy">
-          <p className="eyebrow">{content.heroEyebrow}</p>
-          <h1 className="display">{content.heroTitle}</h1>
+    <main className="art-gift">
+      <section className="art-hero">
+        <div className="art-hero-copy">
+          <p className="art-kicker">{content.heroEyebrow}</p>
+          <h1>{content.heroTitle}</h1>
+          <strong>{content.serviceSubtitle}</strong>
           <p>{content.heroBody}</p>
-          <div className="button-row">
-            <Link href="/products" className="button">
-              전시 꽃선물 고르기
-            </Link>
-            <Link href="/admin" className="button button-light">
-              관리자에서 수정
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section container">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">MOA only</p>
-            <h2 className="section-title">{content.moaHeadline}</h2>
-          </div>
-        </div>
-        <div className="moa-feature">
-          <p>{content.moaBody}</p>
-          <ul>
-            {content.moaBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="section container">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Gallery selection</p>
-            <h2 className="section-title">전시와 공간에 맞춘 꽃선물</h2>
-          </div>
-          <Link className="text-link" href="/products">
-            모든 상품 보기 <span>→</span>
+          <Link className="art-button" href={`/products?gift=artist`}>
+            {content.ctaLabel}
           </Link>
         </div>
-        <div className="product-grid">
-          {content.products.slice(0, 4).map((product) => (
-            <ProductCard key={product.slug} product={product} />
-          ))}
+        <div className="art-hero-image">
+          <img src={content.heroImage} alt="갤러리 전용 플라워 오브제" />
         </div>
       </section>
 
-      <section className="section policy-band">
-        <div className="container policy-grid">
-          <div>
-            <p className="eyebrow">Price policy</p>
-            <h2 className="section-title">가격과 할인 정책을 분리 관리합니다.</h2>
-          </div>
-          <p>{content.discountPolicy}</p>
-          <p>{content.paymentStatus}</p>
+      <section className="art-benefit-panel">
+        <div className="benefit-title">
+          <span />
+          <strong>{content.benefitsTitle}</strong>
+          <span />
         </div>
-      </section>
-
-      <section className="section container">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">Reviews</p>
-            <h2 className="section-title">갤러리 현장에서 받은 후기</h2>
-          </div>
-        </div>
-        <div className="review-grid">
-          {content.reviews.map((review) => (
-            <article className="review-card" key={`${review.name}-${review.context}`}>
-              <p>{review.body}</p>
-              <strong>{review.name}</strong>
-              <span>{review.context}</span>
+        <div className="benefit-grid">
+          {content.benefits.map((benefit) => (
+            <article key={benefit.title}>
+              <h2>{benefit.title}</h2>
+              <p>{benefit.body}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="cta-band">
-        <div className="container cs-grid">
-          <div>
-            <p className="eyebrow" style={{ color: "#ffe3d8" }}>
-              Customer center
-            </p>
-            <h2 className="display">전시 일정과 배송 조건이 애매할 때는 상담으로 조율합니다.</h2>
+      <section className="phone-flow">
+        <div className="flow-title">
+          <span />
+          <h2>{content.stepsTitle}</h2>
+          <span />
+        </div>
+        <div className="phone-grid">
+          {content.steps.map((step, index) => (
+            <article className="phone-step" key={step.number}>
+              <div className="phone-frame">
+                {index === 0 && (
+                  <div className="phone-screen invite-screen">
+                    <p>Invitation</p>
+                    <h3>시간의 결</h3>
+                    <span>by Artist Kim</span>
+                    <small>Gallery MOA</small>
+                    <button>{content.ctaLabel}</button>
+                  </div>
+                )}
+                {index === 1 && featured && (
+                  <div className="phone-screen product-screen">
+                    <img src={featured.image} alt="" />
+                    <h3>{featured.name}</h3>
+                    <p>{featured.summary}</p>
+                    <strong>{displayPrice(featured)}</strong>
+                    <button>선택하기</button>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="phone-screen message-screen">
+                    <h3>전시 정보</h3>
+                    <dl>
+                      <div>
+                        <dt>전시명</dt>
+                        <dd>시간의 결</dd>
+                      </div>
+                      <div>
+                        <dt>작가명</dt>
+                        <dd>Artist Kim</dd>
+                      </div>
+                      <div>
+                        <dt>전시장소</dt>
+                        <dd>Gallery MOA</dd>
+                      </div>
+                    </dl>
+                    <label>메시지 카드</label>
+                    <p className="textarea">전시 오픈을 진심으로 축하드립니다.</p>
+                    <button>다음</button>
+                  </div>
+                )}
+                {index === 3 && featured && (
+                  <div className="phone-screen pay-screen">
+                    <h3>결제하기</h3>
+                    <dl>
+                      <div>
+                        <dt>상품</dt>
+                        <dd>{featured.name}</dd>
+                      </div>
+                      <div>
+                        <dt>금액</dt>
+                        <dd>{displayPrice(featured)}</dd>
+                      </div>
+                      <div>
+                        <dt>혜택</dt>
+                        <dd>모아 회원 10%</dd>
+                      </div>
+                    </dl>
+                    <button>결제하기</button>
+                  </div>
+                )}
+              </div>
+              <p className="step-number">{step.number}</p>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="art-info-band">
+        <div className="integration-box">
+          <h2>{content.integrationTitle}</h2>
+          <div className="integration-chain">
+            <span>MOA</span>
+            <i />
+            <strong>chahaw</strong>
+            <i />
+            <span>GALLERY</span>
           </div>
-          <div className="cs-panel">
-            <p>전화 {content.csPhone}</p>
-            <p>카카오 {content.csKakao}</p>
-            <p>{content.csHours}</p>
-            <Link href="/contact" className="button">
-              문의 남기기
-            </Link>
+          <p>{content.integrationBody}</p>
+          <small>{content.integrationPrivacyNote}</small>
+        </div>
+        <div className="lineup-box">
+          <h2>플라워 라인업</h2>
+          <div className="lineup-grid">
+            {content.products.map((product) => (
+              <Link href={`/products/${product.slug}`} key={product.slug}>
+                <img src={product.image} alt={product.name} />
+                <strong>{product.name}</strong>
+                <span>{displayPrice(product)}</span>
+              </Link>
+            ))}
           </div>
         </div>
+      </section>
+
+      <section className="art-closing">
+        <h2>chahaw design studio</h2>
+        <p>The Art of Composition</p>
       </section>
     </main>
   );

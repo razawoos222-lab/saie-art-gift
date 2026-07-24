@@ -2,19 +2,11 @@
 
 import { useState } from "react";
 import type { Product } from "../lib/products";
-import type { Review, SiteContent } from "../lib/siteContent";
+import type { Benefit, GiftStep, Review, SiteContent } from "../lib/siteContent";
 import { useSiteContent } from "./SiteContentContext";
 
-function updateProduct(products: Product[], index: number, patch: Partial<Product>) {
-  return products.map((product, currentIndex) =>
-    currentIndex === index ? { ...product, ...patch } : product,
-  );
-}
-
-function updateReview(reviews: Review[], index: number, patch: Partial<Review>) {
-  return reviews.map((review, currentIndex) =>
-    currentIndex === index ? { ...review, ...patch } : review,
-  );
+function updateAt<T>(items: T[], index: number, patch: Partial<T>) {
+  return items.map((item, currentIndex) => (currentIndex === index ? { ...item, ...patch } : item));
 }
 
 function ImageUpload({
@@ -88,7 +80,7 @@ function AdminDraftForm({
       <section className="page-intro">
         <div className="container">
           <p className="eyebrow">ChaHwa admin</p>
-          <h1 className="display">상품, 가격, 이미지, 결제 정책을 운영합니다.</h1>
+          <h1 className="display">모바일초대장 꽃선물 서비스를 관리합니다.</h1>
           <p>로그인: {userEmail}</p>
         </div>
       </section>
@@ -96,49 +88,52 @@ function AdminDraftForm({
       <section className="container admin-layout">
         <div className="admin-main">
           <section className="admin-section">
-            <h2>홈페이지 문구와 이미지</h2>
+            <h2>메인 화면</h2>
+            <div className="admin-two">
+              <div className="field">
+                <label htmlFor="service-name">서비스명</label>
+                <input id="service-name" value={draft.serviceName} onChange={(event) => setDraft({ ...draft, serviceName: event.target.value })} />
+              </div>
+              <div className="field">
+                <label htmlFor="cta-label">버튼명</label>
+                <input id="cta-label" value={draft.ctaLabel} onChange={(event) => setDraft({ ...draft, ctaLabel: event.target.value })} />
+              </div>
+            </div>
             <div className="field">
               <label htmlFor="notice">상단 노티스</label>
               <input id="notice" value={draft.notice} onChange={(event) => setDraft({ ...draft, notice: event.target.value })} />
             </div>
             <div className="field">
-              <label htmlFor="hero-title">메인 헤드라인</label>
+              <label htmlFor="hero-title">히어로 타이틀</label>
               <textarea id="hero-title" value={draft.heroTitle} onChange={(event) => setDraft({ ...draft, heroTitle: event.target.value })} />
             </div>
             <div className="field">
-              <label htmlFor="hero-body">메인 설명</label>
+              <label htmlFor="hero-body">히어로 설명</label>
               <textarea id="hero-body" value={draft.heroBody} onChange={(event) => setDraft({ ...draft, heroBody: event.target.value })} />
             </div>
             <div className="field">
-              <label htmlFor="hero-image">메인 이미지 URL</label>
+              <label htmlFor="hero-image">히어로 이미지 URL</label>
               <input id="hero-image" value={draft.heroImage} onChange={(event) => setDraft({ ...draft, heroImage: event.target.value })} />
-              <ImageUpload label="메인 이미지 파일 업로드" slot="hero" onUploaded={(url) => setDraft({ ...draft, heroImage: url })} />
+              <ImageUpload label="히어로 이미지 업로드" slot="hero" onUploaded={(url) => setDraft({ ...draft, heroImage: url })} />
             </div>
           </section>
 
           <section className="admin-section">
-            <h2>모아 전용 소개</h2>
-            <div className="field">
-              <label htmlFor="moa-headline">섹션 제목</label>
-              <input id="moa-headline" value={draft.moaHeadline} onChange={(event) => setDraft({ ...draft, moaHeadline: event.target.value })} />
-            </div>
-            <div className="field">
-              <label htmlFor="moa-body">설명</label>
-              <textarea id="moa-body" value={draft.moaBody} onChange={(event) => setDraft({ ...draft, moaBody: event.target.value })} />
-            </div>
-            {draft.moaBullets.map((bullet, index) => (
-              <div className="field" key={index}>
-                <label htmlFor={`bullet-${index}`}>핵심 문구 {index + 1}</label>
+            <h2>혜택 문구</h2>
+            {draft.benefits.map((benefit: Benefit, index: number) => (
+              <div className="admin-review" key={index}>
                 <input
-                  id={`bullet-${index}`}
-                  value={bullet}
+                  aria-label={`혜택 제목 ${index + 1}`}
+                  value={benefit.title}
                   onChange={(event) =>
-                    setDraft({
-                      ...draft,
-                      moaBullets: draft.moaBullets.map((item, currentIndex) =>
-                        currentIndex === index ? event.target.value : item,
-                      ),
-                    })
+                    setDraft({ ...draft, benefits: updateAt(draft.benefits, index, { title: event.target.value }) })
+                  }
+                />
+                <textarea
+                  aria-label={`혜택 설명 ${index + 1}`}
+                  value={benefit.body}
+                  onChange={(event) =>
+                    setDraft({ ...draft, benefits: updateAt(draft.benefits, index, { body: event.target.value }) })
                   }
                 />
               </div>
@@ -146,77 +141,81 @@ function AdminDraftForm({
           </section>
 
           <section className="admin-section">
+            <h2>꽃선물 4단계</h2>
+            {draft.steps.map((step: GiftStep, index: number) => (
+              <div className="admin-review" key={step.number}>
+                <div className="admin-two">
+                  <input
+                    aria-label={`단계 번호 ${index + 1}`}
+                    value={step.number}
+                    onChange={(event) =>
+                      setDraft({ ...draft, steps: updateAt(draft.steps, index, { number: event.target.value }) })
+                    }
+                  />
+                  <input
+                    aria-label={`단계 제목 ${index + 1}`}
+                    value={step.title}
+                    onChange={(event) =>
+                      setDraft({ ...draft, steps: updateAt(draft.steps, index, { title: event.target.value }) })
+                    }
+                  />
+                </div>
+                <textarea
+                  aria-label={`단계 설명 ${index + 1}`}
+                  value={step.body}
+                  onChange={(event) =>
+                    setDraft({ ...draft, steps: updateAt(draft.steps, index, { body: event.target.value }) })
+                  }
+                />
+              </div>
+            ))}
+          </section>
+
+          <section className="admin-section">
+            <h2>연동 방식</h2>
+            <div className="field">
+              <label htmlFor="integration-title">제목</label>
+              <input id="integration-title" value={draft.integrationTitle} onChange={(event) => setDraft({ ...draft, integrationTitle: event.target.value })} />
+            </div>
+            <div className="field">
+              <label htmlFor="integration-body">설명</label>
+              <textarea id="integration-body" value={draft.integrationBody} onChange={(event) => setDraft({ ...draft, integrationBody: event.target.value })} />
+            </div>
+            <div className="field">
+              <label htmlFor="integration-privacy">개인정보 안내</label>
+              <textarea id="integration-privacy" value={draft.integrationPrivacyNote} onChange={(event) => setDraft({ ...draft, integrationPrivacyNote: event.target.value })} />
+            </div>
+          </section>
+
+          <section className="admin-section">
             <h2>상품 이미지, 가격, 할인</h2>
             <div className="admin-products">
-              {draft.products.map((product, index) => (
+              {draft.products.map((product: Product, index: number) => (
                 <article className="admin-product" key={product.slug}>
                   <img src={product.image} alt="" />
                   <div className="admin-product-fields">
                     <div className="field">
                       <label htmlFor={`product-name-${index}`}>상품명</label>
-                      <input
-                        id={`product-name-${index}`}
-                        value={product.name}
-                        onChange={(event) =>
-                          setDraft({ ...draft, products: updateProduct(draft.products, index, { name: event.target.value }) })
-                        }
-                      />
+                      <input id={`product-name-${index}`} value={product.name} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { name: event.target.value }) })} />
                     </div>
                     <div className="admin-two">
                       <div className="field">
-                        <label htmlFor={`product-price-${index}`}>정가</label>
-                        <input
-                          id={`product-price-${index}`}
-                          type="number"
-                          value={product.price}
-                          onChange={(event) =>
-                            setDraft({ ...draft, products: updateProduct(draft.products, index, { price: Number(event.target.value) }) })
-                          }
-                        />
+                        <label htmlFor={`product-price-${index}`}>기준가</label>
+                        <input id={`product-price-${index}`} type="number" value={product.price} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { price: Number(event.target.value) }) })} />
                       </div>
                       <div className="field">
-                        <label htmlFor={`product-discount-${index}`}>할인율</label>
-                        <input
-                          id={`product-discount-${index}`}
-                          type="number"
-                          value={product.discountPercent ?? 0}
-                          onChange={(event) =>
-                            setDraft({
-                              ...draft,
-                              products: updateProduct(draft.products, index, {
-                                discountPercent: Number(event.target.value) || undefined,
-                              }),
-                            })
-                          }
-                        />
+                        <label htmlFor={`product-price-note-${index}`}>표시 가격</label>
+                        <input id={`product-price-note-${index}`} value={product.priceNote ?? ""} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { priceNote: event.target.value }) })} />
                       </div>
                     </div>
                     <div className="field">
-                      <label htmlFor={`product-image-${index}`}>상품 이미지 URL</label>
-                      <input
-                        id={`product-image-${index}`}
-                        value={product.image}
-                        onChange={(event) =>
-                          setDraft({ ...draft, products: updateProduct(draft.products, index, { image: event.target.value }) })
-                        }
-                      />
-                      <ImageUpload
-                        label="상품 이미지 파일 업로드"
-                        slot={product.slug}
-                        onUploaded={(url) =>
-                          setDraft({ ...draft, products: updateProduct(draft.products, index, { image: url }) })
-                        }
-                      />
+                      <label htmlFor={`product-image-${index}`}>이미지 URL</label>
+                      <input id={`product-image-${index}`} value={product.image} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { image: event.target.value }) })} />
+                      <ImageUpload label="상품 이미지 업로드" slot={product.slug} onUploaded={(url) => setDraft({ ...draft, products: updateAt(draft.products, index, { image: url }) })} />
                     </div>
                     <div className="field">
                       <label htmlFor={`product-summary-${index}`}>짧은 설명</label>
-                      <input
-                        id={`product-summary-${index}`}
-                        value={product.summary}
-                        onChange={(event) =>
-                          setDraft({ ...draft, products: updateProduct(draft.products, index, { summary: event.target.value }) })
-                        }
-                      />
+                      <input id={`product-summary-${index}`} value={product.summary} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { summary: event.target.value }) })} />
                     </div>
                   </div>
                 </article>
@@ -229,11 +228,7 @@ function AdminDraftForm({
             <div className="admin-two">
               <div className="field">
                 <label htmlFor="payment-provider">PG사</label>
-                <select
-                  id="payment-provider"
-                  value={draft.paymentProvider}
-                  onChange={(event) => setDraft({ ...draft, paymentProvider: event.target.value })}
-                >
+                <select id="payment-provider" value={draft.paymentProvider} onChange={(event) => setDraft({ ...draft, paymentProvider: event.target.value })}>
                   <option>토스페이먼츠</option>
                   <option>KG이니시스</option>
                   <option>나이스페이</option>
@@ -245,20 +240,12 @@ function AdminDraftForm({
               </div>
             </div>
             <div className="field">
-              <label htmlFor="discount-policy">할인/적립 정책</label>
-              <textarea id="discount-policy" value={draft.discountPolicy} onChange={(event) => setDraft({ ...draft, discountPolicy: event.target.value })} />
-            </div>
-            <div className="field">
-              <label htmlFor="payment-status">결제 안내 문구</label>
+              <label htmlFor="payment-status">결제 안내</label>
               <textarea id="payment-status" value={draft.paymentStatus} onChange={(event) => setDraft({ ...draft, paymentStatus: event.target.value })} />
             </div>
             <div className="field">
-              <label htmlFor="payment-dashboard-note">결제 대시보드 안내</label>
-              <textarea
-                id="payment-dashboard-note"
-                value={draft.paymentDashboardNote}
-                onChange={(event) => setDraft({ ...draft, paymentDashboardNote: event.target.value })}
-              />
+              <label htmlFor="discount-policy">혜택 정책</label>
+              <textarea id="discount-policy" value={draft.discountPolicy} onChange={(event) => setDraft({ ...draft, discountPolicy: event.target.value })} />
             </div>
             <div className="admin-two">
               <div className="field">
@@ -270,23 +257,11 @@ function AdminDraftForm({
                 <input id="cs-hours" value={draft.csHours} onChange={(event) => setDraft({ ...draft, csHours: event.target.value })} />
               </div>
             </div>
-            {draft.reviews.map((review, index) => (
+            {draft.reviews.map((review: Review, index: number) => (
               <div className="admin-review" key={index}>
-                <input
-                  aria-label={`리뷰 작성자 ${index + 1}`}
-                  value={review.name}
-                  onChange={(event) => setDraft({ ...draft, reviews: updateReview(draft.reviews, index, { name: event.target.value }) })}
-                />
-                <input
-                  aria-label={`리뷰 맥락 ${index + 1}`}
-                  value={review.context}
-                  onChange={(event) => setDraft({ ...draft, reviews: updateReview(draft.reviews, index, { context: event.target.value }) })}
-                />
-                <textarea
-                  aria-label={`리뷰 내용 ${index + 1}`}
-                  value={review.body}
-                  onChange={(event) => setDraft({ ...draft, reviews: updateReview(draft.reviews, index, { body: event.target.value }) })}
-                />
+                <input aria-label={`리뷰 작성자 ${index + 1}`} value={review.name} onChange={(event) => setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { name: event.target.value }) })} />
+                <input aria-label={`리뷰 맥락 ${index + 1}`} value={review.context} onChange={(event) => setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { context: event.target.value }) })} />
+                <textarea aria-label={`리뷰 내용 ${index + 1}`} value={review.body} onChange={(event) => setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { body: event.target.value }) })} />
               </div>
             ))}
           </section>
@@ -301,7 +276,6 @@ function AdminDraftForm({
           </button>
           {saveState === "saved" && <p className="success-text">저장되었습니다.</p>}
           {saveState === "error" && <p className="error-text">저장에 실패했습니다. 로그인 또는 저장소 연결을 확인하세요.</p>}
-          <p className="admin-note">실결제는 PG 가맹점 키와 웹훅 시크릿을 Sites 환경 변수에 넣은 뒤 활성화합니다.</p>
         </aside>
       </section>
     </main>

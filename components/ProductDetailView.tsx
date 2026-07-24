@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formatPrice, salePrice } from "../lib/products";
+import { displayPrice } from "../lib/products";
 import { useCart } from "./CartContext";
 import { useSiteContent } from "./SiteContentContext";
 
@@ -16,7 +16,7 @@ export function ProductDetailView({ slug }: { slug: string }) {
         <div className="empty-state">
           <h1 className="section-title">상품을 찾을 수 없습니다.</h1>
           <Link href="/products" className="button">
-            상품 목록으로
+            라인업으로 돌아가기
           </Link>
         </div>
       </main>
@@ -25,17 +25,14 @@ export function ProductDetailView({ slug }: { slug: string }) {
 
   return (
     <main className="container">
-      <div className="product-page">
+      <div className="product-page art-product-page">
         <div className="product-page-image">
           <img src={product.image} alt={product.name} />
         </div>
         <div>
-          <p className="eyebrow">{product.category}</p>
+          <p className="eyebrow">CHAHWA ART GIFT</p>
           <h1>{product.name}</h1>
-          <p className="product-price">
-            {product.discountPercent ? <del>{formatPrice(product.price)}</del> : null}
-            {formatPrice(salePrice(product))}
-          </p>
+          <p className="product-price">{displayPrice(product)}</p>
           <p className="description">{product.description}</p>
           <dl className="detail-list">
             <div>
@@ -48,15 +45,15 @@ export function ProductDetailView({ slug }: { slug: string }) {
             </div>
             <div>
               <dt>전시 배송</dt>
-              <dd>모아 전시 자동 배송은 API 연동 후 활성화됩니다. 현재는 주문서에서 주소를 입력합니다.</dd>
+              <dd>모아 초대장 전시 정보가 전달되면 작가명, 전시명, 갤러리 장소가 주문서에 자동 반영됩니다.</dd>
             </div>
           </dl>
           <div className="button-row">
             <button type="button" className="button" onClick={() => addItem(product)}>
-              장바구니에 담기
+              선택하기
             </button>
-            <Link href="/contact" className="button button-light">
-              맞춤 상담
+            <Link href="/checkout" className="button button-light">
+              메시지 작성하기
             </Link>
           </div>
         </div>

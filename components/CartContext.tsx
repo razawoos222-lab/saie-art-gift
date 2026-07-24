@@ -31,11 +31,21 @@ function loadStoredCart() {
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(loadStoredCart);
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    window.localStorage.setItem("chahwa-cart", JSON.stringify(items));
-  }, [items]);
+    const timeout = window.setTimeout(() => {
+      setItems(loadStoredCart());
+      setReady(true);
+    }, 0);
+
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    if (ready) window.localStorage.setItem("chahwa-cart", JSON.stringify(items));
+  }, [items, ready]);
 
   const value = useMemo(
     () => ({

@@ -1,2 +1,19 @@
 import Link from "next/link";
-export function SiteFooter() { return <footer className="site-footer"><div className="footer-inner"><div><p className="footer-title">차화 ChaHwa</p><p>계절의 표정을 담아, 마음을 전하는 꽃.</p></div><div className="footer-links"><Link href="/about">브랜드</Link><Link href="/products">꽃 선물</Link><Link href="/contact">주문 상담</Link></div></div></footer>; }
+
+export function SiteFooter() {
+  return (
+    <footer className="site-footer art-footer">
+      <div className="footer-inner">
+        <div>
+          <p className="footer-title">chahaw design studio</p>
+          <p>The Art of Composition. 작가의 순간에, 꽃으로 남기는 축하.</p>
+        </div>
+        <div className="footer-links">
+          <Link href="/products">Lineup</Link>
+          <Link href="/checkout">Gift</Link>
+          <Link href="/contact">CS</Link>
+        </div>
+      </div>
+    </footer>
+  );
+}
