@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import type { Product } from "../lib/products";
+import { salePrice, type Product } from "../lib/products";
 
 export type CartItem = { product: Product; quantity: number };
 
@@ -41,7 +41,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     () => ({
       items,
       count: items.reduce((sum, item) => sum + item.quantity, 0),
-      total: items.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
+      total: items.reduce((sum, item) => sum + salePrice(item.product) * item.quantity, 0),
       addItem: (product: Product) =>
         setItems((current) => {
           const found = current.find((item) => item.product.slug === product.slug);

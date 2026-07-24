@@ -1,6 +1,12 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
 import { PageShell } from "../../../components/PageShell";
-import { formatPrice, products } from "../../../lib/products";
-export function generateStaticParams() { return products.map(({ slug }) => ({ slug })); }
-export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const product = products.find((item) => item.slug === slug); if (!product) notFound(); const moaBaseUrl = process.env.NEXT_PUBLIC_MOA_BASE_URL; const moaHref = moaBaseUrl ? `${moaBaseUrl.replace(/\/$/, "")}/products/${product.slug}` : "/contact"; return <PageShell><main className="container"><div className="product-page"><div className="product-page-image"><img src={product.image} alt={product.name} /></div><div><p className="eyebrow">{product.category}</p><h1>{product.name}</h1><p className="product-price">{formatPrice(product.price)}</p><p className="description">{product.description}</p><dl className="detail-list"><div><dt>구성</dt><dd>{product.flowers}</dd></div><div><dt>추천 순간</dt><dd>{product.occasion}</dd></div><div><dt>주문 안내</dt><dd>계절과 시장 상황에 따라 소재는 일부 달라질 수 있습니다.</dd></div></dl><div className="button-row"><Link href={moaHref} className="button">MOA에서 선물하기</Link><Link href="/contact" className="button button-light">주문 상담하기</Link></div></div></div></main></PageShell>; }
+import { ProductDetailView } from "../../../components/ProductDetailView";
+
+export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  return (
+    <PageShell>
+      <ProductDetailView slug={slug} />
+    </PageShell>
+  );
+}

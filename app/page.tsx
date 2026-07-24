@@ -1,13 +1,10 @@
-import Link from "next/link";
+import { HomeExperience } from "../components/HomeExperience";
 import { PageShell } from "../components/PageShell";
-import { ProductCard } from "../components/ProductCard";
-import { products } from "../lib/products";
 
-export default function Home() { return <PageShell><main>
-  <section className="hero"><img className="hero-image" src="/hero-cha-hwa.png" alt="아이보리 포장과 딥그린 리본으로 묶은 차화의 계절 꽃다발" /><div className="hero-copy"><p className="eyebrow">Seasonal flower gifting</p><h1 className="display">꽃이 피는 마음을<br />가장 다정하게 전합니다.</h1><p>차화는 계절의 결을 따라 꽃을 고르고, 당신의 마음이 오래 남도록 한 다발씩 정성으로 묶습니다.</p><div className="button-row"><Link href="/products" className="button">꽃 선물 고르기</Link><Link href="/contact" className="button button-light">맞춤 주문 상담</Link></div></div></section>
-  <section className="section container"><div className="section-head"><div><p className="eyebrow">Our selection</p><h2 className="section-title">오늘 가장 아름다운 꽃</h2></div><Link className="text-link" href="/products">모든 꽃 선물 보기 <span>→</span></Link></div><div className="product-grid">{products.slice(0, 4).map((product) => <ProductCard key={product.slug} product={product} />)}</div></section>
-  <section className="section occasion-band"><div className="container"><div className="section-head"><div><p className="eyebrow" style={{ color: "#d9c8b2" }}>For your moments</p><h2 className="section-title">마음을 전하는 날</h2></div></div><div className="occasion-grid"><Link href="/occasions/celebration" className="occasion-card"><span>01</span><h3>축하의 날</h3><p>새로운 시작과 기쁜 소식을 위한 꽃</p></Link><Link href="/occasions/gratitude" className="occasion-card"><span>02</span><h3>고마운 마음</h3><p>말보다 먼저 전하고 싶은 감사</p></Link><Link href="/occasions/comfort" className="occasion-card"><span>03</span><h3>다정한 안부</h3><p>평범한 오늘을 조금 더 특별하게</p></Link></div></div></section>
-  <section className="section container"><div className="story"><blockquote className="story-quote">“꽃을 보내는 일이<br />누군가의 하루에<br />작은 빛이 되기를 바랍니다.”</blockquote><div className="story-details"><p>차화는 단정한 색감과 자연스러운 결을 좋아합니다. 같은 꽃이라도 그날 가장 좋은 상태를 살피고, 받는 이의 순간에 어울리는 조합을 제안합니다.</p><Link href="/about" className="text-link">차화의 이야기 <span>→</span></Link></div></div></section>
-  <section className="section container"><p className="eyebrow">Delivery guide</p><div className="delivery"><div className="delivery-item"><strong>서울 당일 배송</strong><p>오전 11시 전 주문 시 서울 일부 지역 당일 배송이 가능합니다.</p></div><div className="delivery-item"><strong>예약 배송</strong><p>원하시는 날짜와 시간대에 맞춰 신선하게 준비해 드립니다.</p></div><div className="delivery-item"><strong>맞춤 주문</strong><p>기업 행사와 특별한 날의 꽃은 상담을 통해 함께 완성합니다.</p></div></div></section>
-  <section className="cta-band"><div className="container"><p className="eyebrow" style={{ color: "#ffe3d8" }}>A flower, from your heart</p><h2 className="display">전하고 싶은 마음이 있다면,<br />차화가 꽃으로 답할게요.</h2><Link href="/contact" className="button">주문 상담 시작하기</Link></div></section>
-</main></PageShell>; }
+export default function Home() {
+  return (
+    <PageShell>
+      <HomeExperience />
+    </PageShell>
+  );
+}
