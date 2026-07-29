@@ -60,7 +60,7 @@ export function CartSummary() {
         </div>
         <hr />
         <div className="cart-grand-total">
-          <span>예상 결제 금액</span>
+          <span>예상 주문 금액</span>
           <strong>{formatPrice(total)}</strong>
         </div>
         <Link href="/checkout" className="button">

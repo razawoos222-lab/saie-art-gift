@@ -1,3 +1,55 @@
 "use client";
+
 import { useState } from "react";
-export function InquiryForm() { const [sent, setSent] = useState(false); return <form className="inquiry-form" onSubmit={(event) => { event.preventDefault(); setSent(true); }}>{sent && <p className="success">문의가 접수되었습니다. 차화가 확인 후 빠르게 연락드릴게요.</p>}<div className="field"><label htmlFor="name">이름</label><input id="name" required placeholder="성함을 입력해 주세요" /></div><div className="field"><label htmlFor="phone">연락처</label><input id="phone" required type="tel" placeholder="010-0000-0000" /></div><div className="field"><label htmlFor="product">원하시는 꽃</label><select id="product" defaultValue=""><option value="" disabled>상품 또는 스타일 선택</option><option>부케</option><option>플라워 박스</option><option>화병꽃 / 식물</option><option>기업 / 행사 꽃</option></select></div><div className="field"><label htmlFor="date">희망 수령일</label><input id="date" type="date" /></div><div className="field full"><label htmlFor="area">배송 지역</label><input id="area" placeholder="예: 서울 성동구" /></div><div className="field full"><label htmlFor="message">전하고 싶은 말씀</label><textarea id="message" placeholder="카드 문구, 받는 분, 원하는 색감 등을 자유롭게 적어 주세요." /></div><p className="form-note">접수 후 주문 가능 여부와 결제 방법을 개별 안내드립니다.</p><button className="button" type="submit">주문 상담 요청</button></form>; }
+
+export function InquiryForm() {
+  const [sent, setSent] = useState(false);
+
+  return (
+    <form
+      className="inquiry-form"
+      onSubmit={(event) => {
+        event.preventDefault();
+        setSent(true);
+      }}
+    >
+      {sent && <p className="success">문의가 접수되었습니다. SAIE가 확인 후 빠르게 연락드릴게요.</p>}
+      <div className="field">
+        <label htmlFor="name">이름</label>
+        <input id="name" required placeholder="성함을 입력해 주세요" />
+      </div>
+      <div className="field">
+        <label htmlFor="phone">연락처</label>
+        <input id="phone" required type="tel" placeholder="010-0000-0000" />
+      </div>
+      <div className="field">
+        <label htmlFor="product">원하시는 꽃</label>
+        <select id="product" defaultValue="">
+          <option value="" disabled>
+            상품 또는 스타일 선택
+          </option>
+          <option>Small Object</option>
+          <option>Gallery Arrangement</option>
+          <option>Opening Piece</option>
+          <option>Seasonal Bouquet</option>
+        </select>
+      </div>
+      <div className="field">
+        <label htmlFor="date">희망 수령일</label>
+        <input id="date" type="date" />
+      </div>
+      <div className="field full">
+        <label htmlFor="area">배송 지역</label>
+        <input id="area" placeholder="예: 서울 종로구 Gallery MOA" />
+      </div>
+      <div className="field full">
+        <label htmlFor="message">전하고 싶은 말씀</label>
+        <textarea id="message" placeholder="카드 문구, 전시명, 원하는 색감 등을 자유롭게 적어 주세요." />
+      </div>
+      <p className="form-note">접수 후 주문 가능 여부와 결제 방법을 개별 안내드립니다.</p>
+      <button className="button" type="submit">
+        주문 상담 요청
+      </button>
+    </form>
+  );
+}

@@ -79,9 +79,9 @@ function AdminDraftForm({
     <main className="admin-page">
       <section className="page-intro">
         <div className="container">
-          <p className="eyebrow">ChaHwa admin</p>
+          <p className="eyebrow">SAIE admin</p>
           <h1 className="display">모바일초대장 꽃선물 서비스를 관리합니다.</h1>
-          <p>로그인: {userEmail}</p>
+          <p>로그인 {userEmail}</p>
         </div>
       </section>
 
@@ -92,11 +92,19 @@ function AdminDraftForm({
             <div className="admin-two">
               <div className="field">
                 <label htmlFor="service-name">서비스명</label>
-                <input id="service-name" value={draft.serviceName} onChange={(event) => setDraft({ ...draft, serviceName: event.target.value })} />
+                <input
+                  id="service-name"
+                  value={draft.serviceName}
+                  onChange={(event) => setDraft({ ...draft, serviceName: event.target.value })}
+                />
               </div>
               <div className="field">
                 <label htmlFor="cta-label">버튼명</label>
-                <input id="cta-label" value={draft.ctaLabel} onChange={(event) => setDraft({ ...draft, ctaLabel: event.target.value })} />
+                <input
+                  id="cta-label"
+                  value={draft.ctaLabel}
+                  onChange={(event) => setDraft({ ...draft, ctaLabel: event.target.value })}
+                />
               </div>
             </div>
             <div className="field">
@@ -104,17 +112,29 @@ function AdminDraftForm({
               <input id="notice" value={draft.notice} onChange={(event) => setDraft({ ...draft, notice: event.target.value })} />
             </div>
             <div className="field">
-              <label htmlFor="hero-title">히어로 타이틀</label>
-              <textarea id="hero-title" value={draft.heroTitle} onChange={(event) => setDraft({ ...draft, heroTitle: event.target.value })} />
+              <label htmlFor="hero-title">메인 타이틀</label>
+              <textarea
+                id="hero-title"
+                value={draft.heroTitle}
+                onChange={(event) => setDraft({ ...draft, heroTitle: event.target.value })}
+              />
             </div>
             <div className="field">
-              <label htmlFor="hero-body">히어로 설명</label>
-              <textarea id="hero-body" value={draft.heroBody} onChange={(event) => setDraft({ ...draft, heroBody: event.target.value })} />
+              <label htmlFor="hero-body">메인 설명</label>
+              <textarea
+                id="hero-body"
+                value={draft.heroBody}
+                onChange={(event) => setDraft({ ...draft, heroBody: event.target.value })}
+              />
             </div>
             <div className="field">
-              <label htmlFor="hero-image">히어로 이미지 URL</label>
-              <input id="hero-image" value={draft.heroImage} onChange={(event) => setDraft({ ...draft, heroImage: event.target.value })} />
-              <ImageUpload label="히어로 이미지 업로드" slot="hero" onUploaded={(url) => setDraft({ ...draft, heroImage: url })} />
+              <label htmlFor="hero-image">메인 이미지 URL</label>
+              <input
+                id="hero-image"
+                value={draft.heroImage}
+                onChange={(event) => setDraft({ ...draft, heroImage: event.target.value })}
+              />
+              <ImageUpload label="메인 이미지 업로드" slot="hero" onUploaded={(url) => setDraft({ ...draft, heroImage: url })} />
             </div>
           </section>
 
@@ -175,15 +195,27 @@ function AdminDraftForm({
             <h2>연동 방식</h2>
             <div className="field">
               <label htmlFor="integration-title">제목</label>
-              <input id="integration-title" value={draft.integrationTitle} onChange={(event) => setDraft({ ...draft, integrationTitle: event.target.value })} />
+              <input
+                id="integration-title"
+                value={draft.integrationTitle}
+                onChange={(event) => setDraft({ ...draft, integrationTitle: event.target.value })}
+              />
             </div>
             <div className="field">
               <label htmlFor="integration-body">설명</label>
-              <textarea id="integration-body" value={draft.integrationBody} onChange={(event) => setDraft({ ...draft, integrationBody: event.target.value })} />
+              <textarea
+                id="integration-body"
+                value={draft.integrationBody}
+                onChange={(event) => setDraft({ ...draft, integrationBody: event.target.value })}
+              />
             </div>
             <div className="field">
               <label htmlFor="integration-privacy">개인정보 안내</label>
-              <textarea id="integration-privacy" value={draft.integrationPrivacyNote} onChange={(event) => setDraft({ ...draft, integrationPrivacyNote: event.target.value })} />
+              <textarea
+                id="integration-privacy"
+                value={draft.integrationPrivacyNote}
+                onChange={(event) => setDraft({ ...draft, integrationPrivacyNote: event.target.value })}
+              />
             </div>
           </section>
 
@@ -196,26 +228,86 @@ function AdminDraftForm({
                   <div className="admin-product-fields">
                     <div className="field">
                       <label htmlFor={`product-name-${index}`}>상품명</label>
-                      <input id={`product-name-${index}`} value={product.name} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { name: event.target.value }) })} />
+                      <input
+                        id={`product-name-${index}`}
+                        value={product.name}
+                        onChange={(event) =>
+                          setDraft({ ...draft, products: updateAt(draft.products, index, { name: event.target.value }) })
+                        }
+                      />
                     </div>
                     <div className="admin-two">
                       <div className="field">
                         <label htmlFor={`product-price-${index}`}>기준가</label>
-                        <input id={`product-price-${index}`} type="number" value={product.price} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { price: Number(event.target.value) }) })} />
+                        <input
+                          id={`product-price-${index}`}
+                          type="number"
+                          value={product.price}
+                          onChange={(event) =>
+                            setDraft({
+                              ...draft,
+                              products: updateAt(draft.products, index, { price: Number(event.target.value) }),
+                            })
+                          }
+                        />
                       </div>
                       <div className="field">
-                        <label htmlFor={`product-price-note-${index}`}>표시 가격</label>
-                        <input id={`product-price-note-${index}`} value={product.priceNote ?? ""} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { priceNote: event.target.value }) })} />
+                        <label htmlFor={`product-discount-${index}`}>할인율</label>
+                        <input
+                          id={`product-discount-${index}`}
+                          type="number"
+                          value={product.discountPercent ?? 0}
+                          onChange={(event) =>
+                            setDraft({
+                              ...draft,
+                              products: updateAt(draft.products, index, {
+                                discountPercent: Number(event.target.value) || undefined,
+                              }),
+                            })
+                          }
+                        />
                       </div>
+                    </div>
+                    <div className="field">
+                      <label htmlFor={`product-price-note-${index}`}>표시 가격</label>
+                      <input
+                        id={`product-price-note-${index}`}
+                        value={product.priceNote ?? ""}
+                        onChange={(event) =>
+                          setDraft({
+                            ...draft,
+                            products: updateAt(draft.products, index, { priceNote: event.target.value }),
+                          })
+                        }
+                      />
                     </div>
                     <div className="field">
                       <label htmlFor={`product-image-${index}`}>이미지 URL</label>
-                      <input id={`product-image-${index}`} value={product.image} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { image: event.target.value }) })} />
-                      <ImageUpload label="상품 이미지 업로드" slot={product.slug} onUploaded={(url) => setDraft({ ...draft, products: updateAt(draft.products, index, { image: url }) })} />
+                      <input
+                        id={`product-image-${index}`}
+                        value={product.image}
+                        onChange={(event) =>
+                          setDraft({ ...draft, products: updateAt(draft.products, index, { image: event.target.value }) })
+                        }
+                      />
+                      <ImageUpload
+                        label="상품 이미지 업로드"
+                        slot={product.slug}
+                        onUploaded={(url) => setDraft({ ...draft, products: updateAt(draft.products, index, { image: url }) })}
+                      />
                     </div>
                     <div className="field">
                       <label htmlFor={`product-summary-${index}`}>짧은 설명</label>
-                      <input id={`product-summary-${index}`} value={product.summary} onChange={(event) => setDraft({ ...draft, products: updateAt(draft.products, index, { summary: event.target.value }) })} />
+                      <input
+                        id={`product-summary-${index}`}
+                        value={product.summary}
+                        onChange={(event) =>
+                          setDraft({
+                            ...draft,
+                            products: updateAt(draft.products, index, { summary: event.target.value }),
+                          })
+                        }
+                      />
                     </div>
                   </div>
                 </article>
@@ -228,7 +320,11 @@ function AdminDraftForm({
             <div className="admin-two">
               <div className="field">
                 <label htmlFor="payment-provider">PG사</label>
-                <select id="payment-provider" value={draft.paymentProvider} onChange={(event) => setDraft({ ...draft, paymentProvider: event.target.value })}>
+                <select
+                  id="payment-provider"
+                  value={draft.paymentProvider}
+                  onChange={(event) => setDraft({ ...draft, paymentProvider: event.target.value })}
+                >
                   <option>토스페이먼츠</option>
                   <option>KG이니시스</option>
                   <option>나이스페이</option>
@@ -241,11 +337,19 @@ function AdminDraftForm({
             </div>
             <div className="field">
               <label htmlFor="payment-status">결제 안내</label>
-              <textarea id="payment-status" value={draft.paymentStatus} onChange={(event) => setDraft({ ...draft, paymentStatus: event.target.value })} />
+              <textarea
+                id="payment-status"
+                value={draft.paymentStatus}
+                onChange={(event) => setDraft({ ...draft, paymentStatus: event.target.value })}
+              />
             </div>
             <div className="field">
               <label htmlFor="discount-policy">혜택 정책</label>
-              <textarea id="discount-policy" value={draft.discountPolicy} onChange={(event) => setDraft({ ...draft, discountPolicy: event.target.value })} />
+              <textarea
+                id="discount-policy"
+                value={draft.discountPolicy}
+                onChange={(event) => setDraft({ ...draft, discountPolicy: event.target.value })}
+              />
             </div>
             <div className="admin-two">
               <div className="field">
@@ -259,9 +363,27 @@ function AdminDraftForm({
             </div>
             {draft.reviews.map((review: Review, index: number) => (
               <div className="admin-review" key={index}>
-                <input aria-label={`리뷰 작성자 ${index + 1}`} value={review.name} onChange={(event) => setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { name: event.target.value }) })} />
-                <input aria-label={`리뷰 맥락 ${index + 1}`} value={review.context} onChange={(event) => setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { context: event.target.value }) })} />
-                <textarea aria-label={`리뷰 내용 ${index + 1}`} value={review.body} onChange={(event) => setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { body: event.target.value }) })} />
+                <input
+                  aria-label={`리뷰 작성자 ${index + 1}`}
+                  value={review.name}
+                  onChange={(event) =>
+                    setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { name: event.target.value }) })
+                  }
+                />
+                <input
+                  aria-label={`리뷰 맥락 ${index + 1}`}
+                  value={review.context}
+                  onChange={(event) =>
+                    setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { context: event.target.value }) })
+                  }
+                />
+                <textarea
+                  aria-label={`리뷰 내용 ${index + 1}`}
+                  value={review.body}
+                  onChange={(event) =>
+                    setDraft({ ...draft, reviews: updateAt(draft.reviews, index, { body: event.target.value }) })
+                  }
+                />
               </div>
             ))}
           </section>

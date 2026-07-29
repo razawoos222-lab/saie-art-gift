@@ -1,26 +1,45 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import type { StoredOrder } from "../lib/orders";
 import { formatPrice } from "../lib/products";
 import { useSiteContent } from "./SiteContentContext";
 
-const rows = [
-  { id: "CH-20260724-001", buyer: "모아 전시 고객", status: "결제 대기", amount: 79000, method: "카드", action: "승인 전" },
-  { id: "CH-20260724-002", buyer: "갤러리 운영팀", status: "상담 결제", amount: 120000, method: "가상계좌", action: "PG 연결 후 발행" },
-  { id: "CH-20260724-003", buyer: "컬렉터 고객", status: "환불 가능", amount: 68000, method: "카드", action: "부분 환불 준비" },
-];
-
 export function PaymentDashboard({ userEmail }: { userEmail: string }) {
   const { content } = useSiteContent();
+  const [orders, setOrders] = useState<StoredOrder[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/admin/orders")
+      .then(async (response) => {
+        const data = (await response.json()) as { orders?: StoredOrder[]; error?: string };
+        if (!response.ok) throw new Error(data.error ?? "주문 목록을 불러오지 못했습니다.");
+        if (alive) setOrders(data.orders ?? []);
+      })
+      .catch((error) => {
+        if (alive) setMessage(error instanceof Error ? error.message : "주문 목록을 불러오지 못했습니다.");
+      })
+      .finally(() => {
+        if (alive) setLoading(false);
+      });
+
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   return (
     <main className="admin-page">
       <section className="page-intro">
         <div className="container">
           <p className="eyebrow">Payment dashboard</p>
-          <h1 className="display">결제 승인, 취소, 환불 상태를 확인합니다.</h1>
+          <h1 className="display">주문, 결제 준비, 취소/환불 상태를 확인합니다.</h1>
           <p>
-            로그인: {userEmail}. 현재 PG 설정은 {content.paymentProvider} 기준이며, 실제 결제 내역은
-            가맹점 키와 웹훅 연결 후 표시됩니다.
+            로그인 {userEmail}. 현재 PG 설정은 {content.paymentProvider} 기준이며, 실제 결제 내역은 가맹점 키 연결 후
+            표시됩니다.
           </p>
         </div>
       </section>
@@ -31,15 +50,18 @@ export function PaymentDashboard({ userEmail }: { userEmail: string }) {
             <span>주문자</span>
             <span>상태</span>
             <span>금액</span>
-            <span>처리</span>
+            <span>결제</span>
           </div>
-          {rows.map((row) => (
-            <div className="payment-row" key={row.id}>
-              <span>{row.id}</span>
-              <span>{row.buyer}</span>
-              <span>{row.status}</span>
-              <span>{formatPrice(row.amount)}</span>
-              <span>{row.action}</span>
+          {loading && <p className="payment-empty">주문 목록을 불러오는 중입니다.</p>}
+          {!loading && message && <p className="form-error">{message}</p>}
+          {!loading && !message && !orders.length && <p className="payment-empty">아직 접수된 주문이 없습니다.</p>}
+          {orders.map((order) => (
+            <div className="payment-row" key={order.id}>
+              <span>{order.orderNo}</span>
+              <span>{order.buyerName}</span>
+              <span>{order.status}</span>
+              <span>{formatPrice(order.total)}</span>
+              <span>{order.paymentStatus}</span>
             </div>
           ))}
         </div>

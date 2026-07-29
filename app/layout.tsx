@@ -17,11 +17,11 @@ const serif = Noto_Serif_KR({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://chahwa.kr"),
-  title: "CHAHWA ART GIFT | 작가에게 꽃선물하기",
-  description: "모아 모바일초대장에 연결되는 갤러리 전용 플라워 기프트 서비스.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://saie.kr"),
+  title: "SAIE ART GIFT | 작가에게 꽃선물하기",
+  description: "MOA 모바일초대장에 연결되는 SAIE design studio의 갤러리 전용 플라워 기프트 서비스.",
   openGraph: {
-    title: "CHAHWA ART GIFT",
+    title: "SAIE ART GIFT",
     description: "작가의 순간에, 꽃으로 남기는 축하.",
     images: ["/og.png"],
   },

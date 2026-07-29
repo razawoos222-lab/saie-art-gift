@@ -1,24 +1,25 @@
-# ChaHwa
+# SAIE ART GIFT
 
-차화는 계절 꽃을 중심으로 한 프리미엄 꽃 선물 사이트입니다. 현재 버전은 홈, 상품 탐색과 상세 페이지, 상황별 추천, 브랜드 소개, 주문 상담 폼을 포함합니다.
+MOA 모바일초대장에 연결되는 `SAIE design studio`의 갤러리 전용 플라워 기프트 사이트입니다.
 
-## 시작하기
+## 주요 기능
+
+- 모바일 홈, 상품 라인업, 상품 상세, 장바구니, 주문서
+- MOA query 연동 준비: `artist`, `exhibition`, `gallery`, `date`, `inviteId`
+- 주문번호 생성과 D1 주문 저장
+- 비회원 주문조회
+- 관리자 콘텐츠 수정, 이미지 업로드, 상품 가격/할인 관리
+- 관리자 결제/주문 대시보드
+- FAQ, 개인정보 처리 안내, 이용/취소 환불 정책
+
+## 개발
 
 ```bash
 npm install
 npm run dev
+npm run build
+npm test
+npm run lint
 ```
 
-프로덕션 빌드는 `npm run build`로 확인합니다.
-
-## 환경 변수
-
-`.env.example`을 참고해 `.env.local`을 만듭니다.
-
-- `NEXT_PUBLIC_SITE_URL`: 배포 사이트 주소
-- `NEXT_PUBLIC_MOA_BASE_URL`: MOA 선물하기 연결 주소
-- `NEXT_PUBLIC_KAKAO_CHANNEL_URL`: 카카오톡 채널 주소
-
-실제 MOA 연동과 상담 저장은 다음 단계에서 해당 URL과 API 계약에 맞춰 연결합니다.
-
-회원 혜택과 전시 배송을 포함한 연동 요구사항은 [MOA 연동 PRD](docs/PRD-MOA-INTEGRATION.md)에 정리되어 있습니다.
+PG 실결제와 MOA 실제 API 연동은 키와 연동 스펙이 확정된 뒤 활성화합니다.

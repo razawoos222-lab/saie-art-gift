@@ -19,13 +19,13 @@ const CartContext = createContext<CartContextValue | null>(null);
 function loadStoredCart() {
   if (typeof window === "undefined") return [];
 
-  const stored = window.localStorage.getItem("chahwa-cart");
+  const stored = window.localStorage.getItem("saie-cart");
   if (!stored) return [];
 
   try {
     return JSON.parse(stored) as CartItem[];
   } catch {
-    window.localStorage.removeItem("chahwa-cart");
+    window.localStorage.removeItem("saie-cart");
     return [];
   }
 }
@@ -44,7 +44,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (ready) window.localStorage.setItem("chahwa-cart", JSON.stringify(items));
+    if (ready) window.localStorage.setItem("saie-cart", JSON.stringify(items));
   }, [items, ready]);
 
   const value = useMemo(

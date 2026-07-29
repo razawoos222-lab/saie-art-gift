@@ -1,2 +1,31 @@
 import { PageShell } from "../../components/PageShell";
-export default function AboutPage() { return <PageShell><main><section className="page-intro"><div className="container"><p className="eyebrow">About ChaHwa</p><h1 className="display">계절을 읽고,<br />마음을 묶습니다.</h1><p>차화는 빠르게 소비되는 꽃보다, 받는 이의 일상에 오래 남을 한 장면을 생각합니다.</p></div></section><section className="container about-layout"><article className="about-panel"><h2>꽃의 가장 좋은 순간</h2><p>매일 시장에서 만나는 꽃은 조금씩 다릅니다. 차화는 그날 가장 건강하고 표정이 좋은 소재를 고르고, 색과 질감이 자연스럽게 이어지도록 한 다발을 완성합니다.</p></article><article className="about-panel dark"><h2>당신의 마음을 닮은 꽃</h2><p>정해진 답을 권하지 않습니다. 보내는 사람과 받는 사람, 전하고 싶은 말과 그날의 분위기를 들은 뒤 꽃으로 가장 잘 어울리는 문장을 만듭니다.</p></article></section></main></PageShell>; }
+
+export default function AboutPage() {
+  return (
+    <PageShell>
+      <main>
+        <section className="page-intro">
+          <div className="container">
+            <p className="eyebrow">About SAIE</p>
+            <h1 className="display">
+              공간을 읽고,
+              <br />
+              장면을 만듭니다.
+            </h1>
+            <p>SAIE design studio는 꽃을 하나의 오브제로 다루며, 전시와 일상에 오래 남을 장면을 제안합니다.</p>
+          </div>
+        </section>
+        <section className="container about-layout">
+          <article className="about-panel">
+            <h2>전시를 위한 플라워</h2>
+            <p>작품과 공간의 분위기를 해치지 않도록 필요한 만큼의 색과 형태만 남겨 제작합니다.</p>
+          </article>
+          <article className="about-panel dark">
+            <h2>일상을 위한 선물</h2>
+            <p>생일, 감사, 응원처럼 일반 꽃선물이 필요한 순간에도 SAIE의 절제된 감도로 구성합니다.</p>
+          </article>
+        </section>
+      </main>
+    </PageShell>
+  );
+}

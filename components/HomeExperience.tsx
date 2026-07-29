@@ -16,7 +16,7 @@ export function HomeExperience() {
           <h1>{content.heroTitle}</h1>
           <strong>{content.serviceSubtitle}</strong>
           <p>{content.heroBody}</p>
-          <Link className="art-button" href={`/products?gift=artist`}>
+          <Link className="art-button" href="/products?gift=artist">
             {content.ctaLabel}
           </Link>
         </div>
@@ -82,7 +82,7 @@ export function HomeExperience() {
                         <dd>Artist Kim</dd>
                       </div>
                       <div>
-                        <dt>전시장소</dt>
+                        <dt>갤러리</dt>
                         <dd>Gallery MOA</dd>
                       </div>
                     </dl>
@@ -93,7 +93,7 @@ export function HomeExperience() {
                 )}
                 {index === 3 && featured && (
                   <div className="phone-screen pay-screen">
-                    <h3>결제하기</h3>
+                    <h3>주문하기</h3>
                     <dl>
                       <div>
                         <dt>상품</dt>
@@ -108,7 +108,7 @@ export function HomeExperience() {
                         <dd>모아 회원 10%</dd>
                       </div>
                     </dl>
-                    <button>결제하기</button>
+                    <button>주문 접수</button>
                   </div>
                 )}
               </div>
@@ -126,7 +126,7 @@ export function HomeExperience() {
           <div className="integration-chain">
             <span>MOA</span>
             <i />
-            <strong>chahaw</strong>
+            <strong>SAIE</strong>
             <i />
             <span>GALLERY</span>
           </div>
@@ -148,7 +148,7 @@ export function HomeExperience() {
       </section>
 
       <section className="art-closing">
-        <h2>chahaw design studio</h2>
+        <h2>saie design studio</h2>
         <p>The Art of Composition</p>
       </section>
     </main>

@@ -11,10 +11,7 @@ export function ProductCatalog() {
     [content.products],
   );
   const [active, setActive] = useState("전체");
-  const visible =
-    active === "전체"
-      ? content.products
-      : content.products.filter((product) => product.category === active);
+  const visible = active === "전체" ? content.products : content.products.filter((product) => product.category === active);
 
   return (
     <>

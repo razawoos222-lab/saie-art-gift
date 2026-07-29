@@ -35,10 +35,7 @@ export async function GET() {
 
   if (!row) {
     const data = JSON.stringify(defaultSiteContent);
-    await db
-      .prepare("INSERT INTO site_content (id, data, updated_at) VALUES (?, ?, ?)")
-      .bind(CONTENT_ID, data, Date.now())
-      .run();
+    await db.prepare("INSERT INTO site_content (id, data, updated_at) VALUES (?, ?, ?)").bind(CONTENT_ID, data, Date.now()).run();
     return Response.json({ content: defaultSiteContent, storage: "d1" });
   }
 
@@ -56,10 +53,7 @@ export async function PUT(request: Request) {
   const content = normalizeSiteContent(payload);
 
   if (!db) {
-    return Response.json(
-      { error: "관리자 저장소가 아직 연결되지 않아 이 환경에서는 저장할 수 없습니다." },
-      { status: 503 },
-    );
+    return Response.json({ error: "관리자 저장소가 아직 연결되지 않아 현재 환경에서는 저장할 수 없습니다." }, { status: 503 });
   }
 
   await ensureTable(db);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { displayPrice, formatPrice, salePrice } from "../lib/products";
 import { useCart } from "./CartContext";
 import { useSiteContent } from "./SiteContentContext";
@@ -11,13 +11,65 @@ export function CheckoutForm() {
   const searchParams = useSearchParams();
   const { content } = useSiteContent();
   const { items, total, clear } = useCart();
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [orderError, setOrderError] = useState("");
 
   const artist = searchParams.get("artist") ?? "Artist Kim";
   const exhibition = searchParams.get("exhibition") ?? "시간의 결";
   const gallery = searchParams.get("gallery") ?? "Gallery MOA";
   const date = searchParams.get("date") ?? "";
   const inviteId = searchParams.get("inviteId") ?? "";
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitting(true);
+    setOrderError("");
+
+    const form = new FormData(event.currentTarget);
+    const buyerPhone = String(form.get("buyerPhone") ?? "").trim();
+    const payload = {
+      buyerName: String(form.get("buyer") ?? "").trim(),
+      buyerPhone,
+      buyerEmail: String(form.get("buyerEmail") ?? "").trim(),
+      recipientArtist: artist,
+      exhibition,
+      gallery,
+      inviteId,
+      deliveryDate: String(form.get("deliveryDate") ?? "").trim(),
+      message: String(form.get("message") ?? "").trim(),
+      items: items.map(({ product, quantity }) => ({
+        slug: product.slug,
+        name: product.name,
+        price: salePrice(product),
+        quantity,
+        image: product.image,
+      })),
+      total,
+    };
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = (await response.json()) as { order?: { orderNo: string }; error?: string };
+
+      if (!response.ok || !data.order) {
+        throw new Error(data.error ?? "주문 접수에 실패했습니다.");
+      }
+
+      clear();
+      router.push(
+        `/order-complete?order=${encodeURIComponent(data.order.orderNo)}&phone=${encodeURIComponent(
+          buyerPhone,
+        )}`,
+      );
+    } catch (error) {
+      setOrderError(error instanceof Error ? error.message : "주문 접수에 실패했습니다.");
+      setSubmitting(false);
+    }
+  }
 
   if (!items.length) {
     return (
@@ -29,17 +81,7 @@ export function CheckoutForm() {
   }
 
   return (
-    <form
-      className="checkout-layout"
-      onSubmit={(event) => {
-        event.preventDefault();
-        setSubmitted(true);
-        window.setTimeout(() => {
-          clear();
-          router.push("/order-complete");
-        }, 350);
-      }}
-    >
+    <form className="checkout-layout" onSubmit={handleSubmit}>
       <div className="checkout-form">
         <section className="form-section">
           <p className="eyebrow">01 Exhibition</p>
@@ -54,17 +96,17 @@ export function CheckoutForm() {
               <strong>{exhibition}</strong>
             </div>
             <div>
-              <span>전시장소</span>
+              <span>갤러리</span>
               <strong>{gallery}</strong>
             </div>
             <div>
               <span>초대장 ID</span>
-              <strong>{inviteId || "모아 연동 전"}</strong>
+              <strong>{inviteId || "MOA 연동 대기"}</strong>
             </div>
           </div>
           <div className="field">
             <label htmlFor="delivery-date">배송/설치 희망일</label>
-            <input id="delivery-date" required type="date" defaultValue={date} />
+            <input id="delivery-date" name="deliveryDate" required type="date" defaultValue={date} />
           </div>
         </section>
 
@@ -75,6 +117,7 @@ export function CheckoutForm() {
             <label htmlFor="card-message">메시지 카드</label>
             <textarea
               id="card-message"
+              name="message"
               placeholder="전시 오픈을 진심으로 축하드립니다. 오래 준비한 시간이 아름답게 피어나길 바랍니다."
             />
           </div>
@@ -89,15 +132,15 @@ export function CheckoutForm() {
           <h2>보내는 분 정보</h2>
           <div className="field">
             <label htmlFor="buyer">보내는 분 성함</label>
-            <input id="buyer" required placeholder="성함을 입력해 주세요" />
+            <input id="buyer" name="buyer" required placeholder="성함을 입력해 주세요" />
           </div>
           <div className="field">
             <label htmlFor="buyer-phone">연락처</label>
-            <input id="buyer-phone" required type="tel" placeholder="010-0000-0000" />
+            <input id="buyer-phone" name="buyerPhone" required type="tel" placeholder="010-0000-0000" />
           </div>
           <div className="field">
             <label htmlFor="buyer-email">이메일</label>
-            <input id="buyer-email" required type="email" placeholder="주문 안내를 받을 이메일" />
+            <input id="buyer-email" name="buyerEmail" required type="email" placeholder="주문 안내를 받을 이메일" />
           </div>
         </section>
       </div>
@@ -131,10 +174,11 @@ export function CheckoutForm() {
         </p>
         <p className="payment-notice">선택 상품 기준가: {items.map((item) => displayPrice(item.product)).join(", ")}</p>
         <label className="consent">
-          <input required type="checkbox" /> 주문 내용과 배송/환불 정책을 확인했습니다.
+          <input required type="checkbox" /> 주문, 배송, 취소/환불, 개인정보 처리 안내를 확인했습니다.
         </label>
-        <button className="button" disabled={submitted} type="submit">
-          {submitted ? "주문 처리 중" : "결제하기"}
+        {orderError && <p className="form-error">{orderError}</p>}
+        <button className="button" disabled={submitting} type="submit">
+          {submitting ? "주문 접수 중" : "주문 접수하기"}
         </button>
       </aside>
     </form>

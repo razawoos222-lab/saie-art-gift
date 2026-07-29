@@ -30,7 +30,7 @@ export function ProductDetailView({ slug }: { slug: string }) {
           <img src={product.image} alt={product.name} />
         </div>
         <div>
-          <p className="eyebrow">CHAHWA ART GIFT</p>
+          <p className="eyebrow">SAIE ART GIFT</p>
           <h1>{product.name}</h1>
           <p className="product-price">{displayPrice(product)}</p>
           <p className="description">{product.description}</p>
@@ -45,7 +45,7 @@ export function ProductDetailView({ slug }: { slug: string }) {
             </div>
             <div>
               <dt>전시 배송</dt>
-              <dd>모아 초대장 전시 정보가 전달되면 작가명, 전시명, 갤러리 장소가 주문서에 자동 반영됩니다.</dd>
+              <dd>MOA 초대장 전시 정보가 전달되면 작가명, 전시명, 갤러리명이 주문서에 자동 반영됩니다.</dd>
             </div>
           </dl>
           <div className="button-row">
