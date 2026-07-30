@@ -15,6 +15,7 @@ export const orders = sqliteTable("orders", {
   recipientArtist: text("recipient_artist").notNull(),
   exhibition: text("exhibition").notNull(),
   gallery: text("gallery").notNull(),
+  galleryAddress: text("gallery_address"),
   inviteId: text("invite_id"),
   deliveryDate: text("delivery_date"),
   message: text("message"),

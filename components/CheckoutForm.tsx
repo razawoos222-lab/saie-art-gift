@@ -5,20 +5,24 @@ import { FormEvent, useState } from "react";
 import { displayPrice, formatPrice, salePrice } from "../lib/products";
 import { useCart } from "./CartContext";
 import { useSiteContent } from "./SiteContentContext";
+import { useMoaInvite } from "./useMoaInvite";
 
 export function CheckoutForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { content } = useSiteContent();
   const { items, total, clear } = useCart();
+  const { invite } = useMoaInvite();
   const [submitting, setSubmitting] = useState(false);
   const [orderError, setOrderError] = useState("");
 
-  const artist = searchParams.get("artist") ?? "Artist Kim";
-  const exhibition = searchParams.get("exhibition") ?? "시간의 결";
-  const gallery = searchParams.get("gallery") ?? "Gallery MOA";
-  const date = searchParams.get("date") ?? "";
-  const inviteId = searchParams.get("inviteId") ?? "";
+  const artist = searchParams.get("artist") ?? invite.artist ?? "Artist Kim";
+  const exhibition = searchParams.get("exhibition") ?? invite.exhibition ?? "시간의 결";
+  const gallery = searchParams.get("gallery") ?? invite.gallery ?? "Gallery MOA";
+  const galleryAddress = searchParams.get("galleryAddress") ?? searchParams.get("address") ?? invite.galleryAddress ?? invite.address ?? "";
+  const date = searchParams.get("date") ?? invite.date ?? "";
+  const inviteId = searchParams.get("inviteId") ?? invite.inviteId ?? "";
+  const hasMoaBenefit = (searchParams.get("moaMember") ?? invite.moaMember) === "true";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,6 +39,7 @@ export function CheckoutForm() {
       exhibition,
       gallery,
       inviteId,
+      galleryAddress,
       deliveryDate: String(form.get("deliveryDate") ?? "").trim(),
       message: String(form.get("message") ?? "").trim(),
       items: items.map(({ product, quantity }) => ({
@@ -56,7 +61,12 @@ export function CheckoutForm() {
       const data = (await response.json()) as { order?: { orderNo: string }; error?: string };
 
       if (!response.ok || !data.order) {
-        throw new Error(data.error ?? "주문 접수에 실패했습니다.");
+        const messages: Record<string, string> = {
+          ORDER_STORAGE_NOT_CONNECTED: "주문 저장소가 아직 연결되지 않았습니다.",
+          ORDER_REQUIRED_FIELDS_MISSING: "주문자명, 연락처, 상품 정보가 필요합니다.",
+          ORDER_TOTAL_INVALID: "주문 금액이 올바르지 않습니다.",
+        };
+        throw new Error(messages[data.error ?? ""] ?? "주문 접수에 실패했습니다.");
       }
 
       clear();
@@ -98,6 +108,10 @@ export function CheckoutForm() {
             <div>
               <span>갤러리</span>
               <strong>{gallery}</strong>
+            </div>
+            <div>
+              <span>전시장 주소</span>
+              <strong>{galleryAddress || "MOA 전시장 주소 연동 대기"}</strong>
             </div>
             <div>
               <span>초대장 ID</span>
@@ -165,6 +179,12 @@ export function CheckoutForm() {
           <span>받는 작가</span>
           <strong>{artist}</strong>
         </div>
+        {hasMoaBenefit && (
+          <div className="mini-line">
+            <span>MOA 회원 혜택</span>
+            <strong>10% 할인 확인</strong>
+          </div>
+        )}
         <div className="cart-grand-total">
           <span>총 주문 금액</span>
           <strong>{formatPrice(total)}</strong>

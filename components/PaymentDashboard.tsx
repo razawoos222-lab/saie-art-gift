@@ -5,6 +5,16 @@ import type { StoredOrder } from "../lib/orders";
 import { formatPrice } from "../lib/products";
 import { useSiteContent } from "./SiteContentContext";
 
+function orderStatusLabel(status: string) {
+  if (status === "ORDER_RECEIVED") return "주문 접수";
+  return status;
+}
+
+function paymentStatusLabel(status: string) {
+  if (status === "PG_PENDING") return "PG 연결 대기";
+  return status;
+}
+
 export function PaymentDashboard({ userEmail }: { userEmail: string }) {
   const { content } = useSiteContent();
   const [orders, setOrders] = useState<StoredOrder[]>([]);
@@ -59,9 +69,9 @@ export function PaymentDashboard({ userEmail }: { userEmail: string }) {
             <div className="payment-row" key={order.id}>
               <span>{order.orderNo}</span>
               <span>{order.buyerName}</span>
-              <span>{order.status}</span>
+              <span>{orderStatusLabel(order.status)}</span>
               <span>{formatPrice(order.total)}</span>
-              <span>{order.paymentStatus}</span>
+              <span>{paymentStatusLabel(order.paymentStatus)}</span>
             </div>
           ))}
         </div>

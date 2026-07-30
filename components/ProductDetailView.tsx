@@ -4,10 +4,12 @@ import Link from "next/link";
 import { displayPrice } from "../lib/products";
 import { useCart } from "./CartContext";
 import { useSiteContent } from "./SiteContentContext";
+import { useMoaInvite } from "./useMoaInvite";
 
 export function ProductDetailView({ slug }: { slug: string }) {
   const { content } = useSiteContent();
   const { addItem } = useCart();
+  const { withInvite } = useMoaInvite();
   const product = content.products.find((item) => item.slug === slug) ?? content.products[0];
 
   if (!product) {
@@ -52,7 +54,7 @@ export function ProductDetailView({ slug }: { slug: string }) {
             <button type="button" className="button" onClick={() => addItem(product)}>
               선택하기
             </button>
-            <Link href="/checkout" className="button button-light">
+            <Link href={withInvite("/checkout")} className="button button-light">
               메시지 작성하기
             </Link>
           </div>

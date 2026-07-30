@@ -178,7 +178,15 @@ body { background: #f5f0e8; color: #1d1a16; }
 .payment-empty { margin: 0; padding: 22px; color: #6b6259; }
 .faq-list, .policy-list { display: grid; gap: 16px; }
 .faq-list .form-section h2, .policy-list .form-section h2 { font-size: 18px; }
+.moa-context-card { margin: 26px 0 8px; padding: 18px 20px; border: 1px solid rgb(29 26 22 / 12%); background: #fffaf1; }
+.moa-context-card.compact { margin: 0 0 18px; }
+.moa-context-card h2 { margin: 0 0 8px; font-family: var(--font-serif), serif; font-size: 24px; font-weight: 500; }
+.moa-context-card p { margin: 0; color: #4f4943; }
+.moa-context-card small { display: block; margin-top: 10px; color: #71685f; font-size: 12px; line-height: 1.6; }
+.moa-gift-intro { padding-bottom: 46px; }
 
 @media (max-width: 760px) {
   .lookup-layout { grid-template-columns: 1fr; }
+  .moa-context-card { margin-top: 18px; padding: 16px; }
+  .moa-context-card h2 { font-size: 21px; }
 }

@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { displayPrice, formatPrice, salePrice } from "../lib/products";
 import { useCart } from "./CartContext";
+import { useMoaInvite } from "./useMoaInvite";
 
 export function CartSummary() {
   const { items, total, updateQuantity, removeItem } = useCart();
+  const { hasInvite, invite, withInvite } = useMoaInvite();
 
   if (!items.length) {
     return (
@@ -13,7 +15,7 @@ export function CartSummary() {
         <p className="eyebrow">Selected gift</p>
         <h1 className="section-title">아직 선택한 플라워가 없습니다.</h1>
         <p>작가와 전시 공간에 어울리는 플라워 기프트를 선택해 주세요.</p>
-        <Link href="/products" className="button">
+        <Link href={withInvite("/products")} className="button">
           플라워 라인업 보기
         </Link>
       </div>
@@ -23,6 +25,15 @@ export function CartSummary() {
   return (
     <div className="cart-layout">
       <div className="cart-list">
+        {hasInvite && (
+          <section className="moa-context-card compact">
+            <p className="eyebrow">MOA invitation connected</p>
+            <h2>{invite.exhibition ?? "전시 정보"}</h2>
+            <p>
+              {invite.artist ?? "작가"} · {invite.gallery ?? "갤러리"}
+            </p>
+          </section>
+        )}
         {items.map(({ product, quantity }) => (
           <article className="cart-item" key={product.slug}>
             <img src={product.image} alt="" />
@@ -56,14 +67,14 @@ export function CartSummary() {
         </div>
         <div>
           <span>배송/설치</span>
-          <strong>전시 정보 기준</strong>
+          <strong>{hasInvite ? "MOA 전시 정보 기준" : "주문서에서 확인"}</strong>
         </div>
         <hr />
         <div className="cart-grand-total">
           <span>예상 주문 금액</span>
           <strong>{formatPrice(total)}</strong>
         </div>
-        <Link href="/checkout" className="button">
+        <Link href={withInvite("/checkout")} className="button">
           메시지 작성하기
         </Link>
       </aside>

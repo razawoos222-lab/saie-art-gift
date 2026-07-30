@@ -1,16 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { displayPrice, formatPrice, salePrice, type Product } from "../lib/products";
 import { useCart } from "./CartContext";
+import { useMoaInvite } from "./useMoaInvite";
 
 export function ProductCard({ product }: { product: Product }) {
+  const router = useRouter();
   const { addItem } = useCart();
+  const { withInvite } = useMoaInvite();
   const finalPrice = salePrice(product);
+
+  function chooseGift() {
+    addItem(product);
+    router.push(withInvite("/checkout"));
+  }
 
   return (
     <article className="product-card curated-card">
-      <Link href={`/products/${product.slug}`}>
+      <Link href={withInvite(`/products/${product.slug}`)}>
         <div className="product-image">
           <img src={product.image} alt={product.name} />
           {product.tag && <span className="tag">{product.tag}</span>}
@@ -33,8 +42,8 @@ export function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
       </Link>
-      <button className="add-to-cart" type="button" onClick={() => addItem(product)}>
-        선택하기
+      <button className="add-to-cart" type="button" onClick={chooseGift}>
+        선택하고 주문서 작성
       </button>
     </article>
   );
