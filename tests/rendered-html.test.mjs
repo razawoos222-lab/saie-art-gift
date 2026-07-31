@@ -12,12 +12,12 @@ async function render() {
   );
 }
 
-test("server-renders the SAIE gallery gift storefront", async () => {
+test("server-renders the SAIE studio design storefront", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
-  assert.match(html, /saie gallery gift|SAIE GALLERY GIFT/);
+  assert.match(html, /SAIE STUDIO DESIGN|갤러리 전시의 순간/);
   assert.match(html, /MOA × SAIE|갤러리 꽃선물/);
   assert.match(html, /hero-cha-hwa\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
