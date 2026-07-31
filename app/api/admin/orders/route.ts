@@ -1,8 +1,8 @@
 import { ensureOrdersTable, getD1Binding, toStoredOrder } from "../../../../lib/orders";
-import { getChatGPTUser } from "../../../chatgpt-auth";
+import { getAdminIdentity } from "../../../admin-auth";
 
 export async function GET() {
-  const user = await getChatGPTUser();
+  const user = await getAdminIdentity();
   if (!user) {
     return Response.json({ error: "관리자 로그인이 필요합니다." }, { status: 401 });
   }

@@ -13,10 +13,10 @@ export function CartSummary() {
     return (
       <div className="empty-state">
         <p className="eyebrow">Selected gift</p>
-        <h1 className="section-title">아직 선택한 갤러리 꽃선물이 없습니다.</h1>
-        <p>작가와 전시 공간에 어울리는 플라워 기프트를 선택해 주세요.</p>
+        <h1 className="section-title">아직 선택한 작가 선물이 없습니다.</h1>
+        <p>작가와 전시 공간에 어울리는 플라워 구성을 먼저 선택해 주세요.</p>
         <Link href={withInvite("/gift")} className="button">
-          갤러리 꽃선물 보기
+          작가 선물 선택하기
         </Link>
       </div>
     );

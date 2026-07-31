@@ -18,8 +18,8 @@ const serif = Noto_Serif_KR({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://saie.kr"),
-  title: "SAIE STUDIO DESIGN | 갤러리 전시의 순간을 꽃으로 전합니다",
-  description: "MOA 모바일초대장에 연결되는 SAIE STUDIO DESIGN의 갤러리 전용 플라워 기프트 서비스",
+  title: "SAIE STUDIO DESIGN | 작가에게 꽃 선물하기",
+  description: "MOA 모바일초대장에 연결되는 SAIE STUDIO DESIGN의 작가 전용 플라워 기프트 서비스",
   openGraph: {
     title: "SAIE STUDIO DESIGN",
     description: "작가와 갤러리에 어울리는 꽃을 모아 초대장에서 바로 보내세요.",

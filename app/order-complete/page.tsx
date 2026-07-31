@@ -10,9 +10,7 @@ export default async function OrderCompletePage({ searchParams }: Props) {
   const orderNo = params.order ?? "";
   const phone = params.phone ?? "";
   const lookupHref =
-    orderNo && phone
-      ? `/order-lookup?orderNo=${encodeURIComponent(orderNo)}&phone=${encodeURIComponent(phone)}`
-      : "/order-lookup";
+    orderNo && phone ? `/order-lookup?orderNo=${encodeURIComponent(orderNo)}&phone=${encodeURIComponent(phone)}` : "/order-lookup";
 
   return (
     <PageShell>
@@ -32,7 +30,7 @@ export default async function OrderCompletePage({ searchParams }: Props) {
               주문조회
             </Link>
             <Link className="button button-light" href="/gift">
-              갤러리 꽃선물 보기
+              작가 선물 선택하기
             </Link>
           </div>
         </section>

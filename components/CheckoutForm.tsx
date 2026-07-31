@@ -85,11 +85,7 @@ export function CheckoutForm() {
       }
 
       clear();
-      router.push(
-        `/order-complete?order=${encodeURIComponent(data.order.orderNo)}&phone=${encodeURIComponent(
-          buyerPhone,
-        )}`,
-      );
+      router.push(`/order-complete?order=${encodeURIComponent(data.order.orderNo)}&phone=${encodeURIComponent(buyerPhone)}`);
     } catch (error) {
       setOrderError(error instanceof Error ? error.message : "주문 접수에 실패했습니다.");
       setSubmitting(false);
@@ -99,8 +95,8 @@ export function CheckoutForm() {
   if (!items.length) {
     return (
       <div className="empty-state">
-        <h1 className="section-title">선택한 갤러리 꽃선물이 없습니다.</h1>
-        <p>작가와 전시 공간에 어울리는 꽃선물을 먼저 선택해 주세요.</p>
+        <h1 className="section-title">선택한 작가 선물이 없습니다.</h1>
+        <p>작가와 전시 공간에 어울리는 플라워 구성을 먼저 선택해 주세요.</p>
       </div>
     );
   }
@@ -133,9 +129,7 @@ export function CheckoutForm() {
               <strong>{inviteId || "MOA 연동 대기"}</strong>
             </div>
           </div>
-          {hasInviteBenefit && (
-            <p className="benefit-note">MOA 초대장 링크 유입으로 10% 할인이 적용됩니다.</p>
-          )}
+          {hasInviteBenefit && <p className="benefit-note">MOA 초대장 링크 유입으로 10% 할인이 적용됩니다.</p>}
           <div className="field">
             <label htmlFor="delivery-date">배송/설치 희망일</label>
             <input id="delivery-date" name="deliveryDate" required type="date" defaultValue={date} />

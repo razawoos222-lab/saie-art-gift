@@ -1,5 +1,5 @@
 import { defaultSiteContent, normalizeSiteContent, type SiteContent } from "../../../lib/siteContent";
-import { getChatGPTUser } from "../../chatgpt-auth";
+import { getAdminIdentity } from "../../admin-auth";
 
 const CONTENT_ID = "main";
 
@@ -14,9 +14,7 @@ async function getBinding() {
 
 async function ensureTable(db: D1Database) {
   await db
-    .prepare(
-      "CREATE TABLE IF NOT EXISTS site_content (id TEXT PRIMARY KEY NOT NULL, data TEXT NOT NULL, updated_at INTEGER NOT NULL)",
-    )
+    .prepare("CREATE TABLE IF NOT EXISTS site_content (id TEXT PRIMARY KEY NOT NULL, data TEXT NOT NULL, updated_at INTEGER NOT NULL)")
     .run();
 }
 
@@ -28,10 +26,7 @@ export async function GET() {
   }
 
   await ensureTable(db);
-  const row = await db
-    .prepare("SELECT data FROM site_content WHERE id = ?")
-    .bind(CONTENT_ID)
-    .first<{ data: string }>();
+  const row = await db.prepare("SELECT data FROM site_content WHERE id = ?").bind(CONTENT_ID).first<{ data: string }>();
 
   if (!row) {
     const data = JSON.stringify(defaultSiteContent);
@@ -43,7 +38,7 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getAdminIdentity();
   if (!user) {
     return Response.json({ error: "관리자 로그인이 필요합니다." }, { status: 401 });
   }

@@ -1,4 +1,4 @@
-import { getChatGPTUser } from "../../../chatgpt-auth";
+import { getAdminIdentity } from "../../../admin-auth";
 
 async function getBucket() {
   try {
@@ -18,15 +18,12 @@ function safeName(name: string) {
 }
 
 export async function POST(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getAdminIdentity();
   if (!user) return Response.json({ error: "관리자 로그인이 필요합니다." }, { status: 401 });
 
   const bucket = await getBucket();
   if (!bucket) {
-    return Response.json(
-      { error: "이미지 저장소가 아직 연결되지 않았습니다." },
-      { status: 503 },
-    );
+    return Response.json({ error: "이미지 저장소가 아직 연결되지 않았습니다." }, { status: 503 });
   }
 
   const form = await request.formData();

@@ -7,7 +7,7 @@ import { useSiteContent } from "./SiteContentContext";
 
 export function HomeExperience() {
   const { content } = useSiteContent();
-  const featured = content.products.find((product) => product.slug === "opening-table") ?? content.products[0];
+  const featured = content.products[0];
   const heroStyle = content.heroStyle;
   const heroCssVars = {
     "--hero-title-size": `${heroStyle.titleSize}px`,
@@ -33,7 +33,7 @@ export function HomeExperience() {
           </Link>
         </div>
         <div className="art-hero-image">
-          <img src={content.heroImage} alt="갤러리에 어울리는 플라워 오브제" />
+          <img src={content.heroImage} alt="작가에게 보내는 갤러리 플라워 오브제" />
         </div>
       </section>
 
@@ -53,35 +53,25 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section className="art-info-band">
-        <div className="lineup-box">
-          <h2>갤러리 꽃선물</h2>
-          <div className="lineup-grid">
-            {content.products.map((product) => (
-              <Link href={`/products/${product.slug}`} key={product.slug}>
-                <img src={product.image} alt={product.name} />
-                <strong>{product.name}</strong>
-                <span>{displayPrice(product)}</span>
-              </Link>
-            ))}
-          </div>
+      <section className="artist-gift-showcase">
+        <div className="artist-gift-head">
+          <p className="art-kicker">{content.serviceName}</p>
+          <h2>작가에게 꽃 선물하기</h2>
+          <p>
+            꽃이 작품보다 먼저 보이지 않도록, 낮은 채도와 정돈된 형태의 구성만 제안합니다. 작가 선물,
+            오프닝 리셉션, 갤러리 조화시공까지 전시 상황에 맞게 선택할 수 있습니다.
+          </p>
         </div>
-        <div className="integration-box">
-          <h2>{content.moaHeadline}</h2>
-          <div className="integration-chain">
-            <span>MOA</span>
-            <i />
-            <strong>SAIE</strong>
-            <i />
-            <span>GALLERY</span>
-          </div>
-          <p>{content.integrationBody}</p>
-          <small>{content.integrationPrivacyNote}</small>
-          <ul className="moa-bullet-list">
-            {content.moaBullets.map((bullet) => (
-              <li key={bullet}>{bullet}</li>
-            ))}
-          </ul>
+        <div className="artist-gift-grid">
+          {content.products.map((product) => (
+            <Link className="artist-gift-card" href={`/products/${product.slug}`} key={product.slug}>
+              <img src={product.image} alt={product.name} />
+              <span>{product.category}</span>
+              <strong>{product.name}</strong>
+              <p>{product.summary}</p>
+              <em>{displayPrice(product)}</em>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -101,7 +91,7 @@ export function HomeExperience() {
                     <h3>시간의 결</h3>
                     <span>by Artist Kim</span>
                     <small>Gallery MOA</small>
-                    <button>작가에게 꽃선물하기</button>
+                    <button>작가에게 꽃 선물하기</button>
                   </div>
                 )}
                 {index === 1 && featured && (
@@ -110,7 +100,7 @@ export function HomeExperience() {
                     <h3>{featured.name}</h3>
                     <p>{featured.summary}</p>
                     <strong>{displayPrice(featured)}</strong>
-                    <button>이 꽃으로 보내기</button>
+                    <button>이 선물로 보내기</button>
                   </div>
                 )}
                 {index === 2 && (
@@ -159,6 +149,22 @@ export function HomeExperience() {
               <p className="step-number">{step.number}</p>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="home-review-section">
+        <div className="artist-gift-head">
+          <p className="art-kicker">REVIEW</p>
+          <h2>고객 리뷰</h2>
+        </div>
+        <div className="home-review-grid">
+          {content.reviews.map((review) => (
+            <article key={`${review.name}-${review.context}`}>
+              <p>{review.body}</p>
+              <strong>{review.name}</strong>
+              <span>{review.context}</span>
             </article>
           ))}
         </div>

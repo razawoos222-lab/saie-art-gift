@@ -5,27 +5,26 @@ import { ProductCard } from "./ProductCard";
 import { useMoaInvite } from "./useMoaInvite";
 import { useSiteContent } from "./SiteContentContext";
 
+const ALL_FILTER = "전체";
+
 export function ProductCatalog() {
   const { content } = useSiteContent();
   const { hasInvite, invite } = useMoaInvite();
-  const filters = useMemo(
-    () => ["전체", ...Array.from(new Set(content.products.map((product) => product.category)))],
-    [content.products],
-  );
-  const [active, setActive] = useState("전체");
-  const visible = active === "전체" ? content.products : content.products.filter((product) => product.category === active);
+  const filters = useMemo(() => [ALL_FILTER, ...Array.from(new Set(content.products.map((product) => product.category)))], [content.products]);
+  const [active, setActive] = useState(ALL_FILTER);
+  const visible = active === ALL_FILTER ? content.products : content.products.filter((product) => product.category === active);
 
   return (
     <>
       {hasInvite && (
         <section className="moa-context-card" aria-label="MOA 초대장 전시 정보">
           <p className="eyebrow">MOA invitation connected</p>
-          <h2>{invite.exhibition ?? "전시 정보가 연결되었습니다"}</h2>
+          <h2>{invite.exhibition ?? "전시 정보가 연결되었습니다."}</h2>
           <p>
             {invite.artist ?? "작가"} · {invite.gallery ?? "갤러리"}
             {invite.date ? ` · ${invite.date}` : ""}
           </p>
-          <small>선택한 꽃은 연결된 전시 장소와 작가 정보로 주문서에 자동 반영됩니다.</small>
+          <small>선택한 선물은 연결된 전시 장소와 작가 정보를 기준으로 주문서에 자동 반영됩니다.</small>
         </section>
       )}
       <div className="filter-row" aria-label="상품 카테고리">
