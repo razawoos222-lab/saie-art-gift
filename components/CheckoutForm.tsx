@@ -197,7 +197,7 @@ export function CheckoutForm() {
           <input required type="checkbox" /> 주문, 배송, 취소/환불, 개인정보 처리 안내를 확인했습니다.
         </label>
         {orderError && <p className="form-error">{orderError}</p>}
-        <button className="button" disabled={submitting} type="submit">
+        <button className="button checkout-submit" disabled={submitting} type="submit">
           {submitting ? "주문 접수 중" : "주문 접수하기"}
         </button>
       </aside>
