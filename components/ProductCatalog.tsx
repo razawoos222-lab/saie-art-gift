@@ -20,12 +20,12 @@ export function ProductCatalog() {
       {hasInvite && (
         <section className="moa-context-card" aria-label="MOA 초대장 전시 정보">
           <p className="eyebrow">MOA invitation connected</p>
-          <h2>{invite.exhibition ?? "전시 정보가 연결되었습니다."}</h2>
+          <h2>{invite.exhibition ?? "전시 정보가 연결되었습니다"}</h2>
           <p>
             {invite.artist ?? "작가"} · {invite.gallery ?? "갤러리"}
             {invite.date ? ` · ${invite.date}` : ""}
           </p>
-          <small>상품을 선택하면 이 전시 정보가 주문서에 자동으로 이어집니다.</small>
+          <small>선택한 꽃은 연결된 전시 장소와 작가 정보로 주문서에 자동 반영됩니다.</small>
         </section>
       )}
       <div className="filter-row" aria-label="상품 카테고리">

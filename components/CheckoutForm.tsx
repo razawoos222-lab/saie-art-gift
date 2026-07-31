@@ -84,8 +84,8 @@ export function CheckoutForm() {
   if (!items.length) {
     return (
       <div className="empty-state">
-        <h1 className="section-title">선택한 플라워가 없습니다.</h1>
-        <p>작가에게 전할 플라워 기프트를 먼저 선택해 주세요.</p>
+        <h1 className="section-title">선택한 갤러리 꽃선물이 없습니다.</h1>
+        <p>작가와 전시 공간에 어울리는 꽃선물을 먼저 선택해 주세요.</p>
       </div>
     );
   }
@@ -161,7 +161,7 @@ export function CheckoutForm() {
 
       <aside className="checkout-total">
         <p className="eyebrow">Payment</p>
-        <h2>결제 전 확인</h2>
+        <h2>주문 전 확인</h2>
         {items.map(({ product, quantity }) => (
           <div className="mini-line" key={product.slug}>
             <span>

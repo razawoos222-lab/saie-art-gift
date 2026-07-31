@@ -6,32 +6,29 @@ import { useSiteContent } from "./SiteContentContext";
 
 export function HomeExperience() {
   const { content } = useSiteContent();
-  const featured = content.products[1] ?? content.products[0];
+  const featured = content.products.find((product) => product.slug === "opening-table") ?? content.products[0];
 
   return (
     <main className="art-gift">
       <section className="art-hero">
         <div className="art-hero-copy">
-          <p className="art-kicker">MOA × SAIE</p>
-          <h1>saie artist gift</h1>
-          <strong>모아 초대장에서 이어지는 갤러리 전용 꽃선물</strong>
-          <p>
-            전시 초대장을 받은 분이 작가에게 꽃과 메시지를 보낼 수 있는 모바일 전용 주문 화면입니다. 작가, 전시,
-            갤러리 정보는 주문서까지 이어집니다.
-          </p>
+          <p className="art-kicker">{content.heroEyebrow}</p>
+          <h1>{content.heroTitle}</h1>
+          <strong>{content.serviceSubtitle}</strong>
+          <p>{content.heroBody}</p>
           <Link className="art-button" href="/gift">
-            꽃 선택하기
+            {content.ctaLabel}
           </Link>
         </div>
         <div className="art-hero-image">
-          <img src={content.heroImage} alt="갤러리 전용 플라워 오브제" />
+          <img src={content.heroImage} alt="갤러리에 어울리는 플라워 오브제" />
         </div>
       </section>
 
       <section className="art-benefit-panel">
         <div className="benefit-title">
           <span />
-          <strong>초대장에서 바로 이어지는 주문</strong>
+          <strong>{content.benefitsTitle}</strong>
           <span />
         </div>
         <div className="benefit-grid">
@@ -47,7 +44,7 @@ export function HomeExperience() {
       <section className="phone-flow">
         <div className="flow-title">
           <span />
-          <h2>작가에게 꽃을 보내는 4단계</h2>
+          <h2>{content.stepsTitle}</h2>
           <span />
         </div>
         <div className="phone-grid">
@@ -69,7 +66,7 @@ export function HomeExperience() {
                     <h3>{featured.name}</h3>
                     <p>{featured.summary}</p>
                     <strong>{displayPrice(featured)}</strong>
-                    <button>이 꽃 선택하기</button>
+                    <button>이 꽃으로 보내기</button>
                   </div>
                 )}
                 {index === 2 && (
@@ -125,19 +122,24 @@ export function HomeExperience() {
 
       <section className="art-info-band">
         <div className="integration-box">
-          <h2>모아 초대장 링크 연동</h2>
+          <h2>{content.moaHeadline}</h2>
           <div className="integration-chain">
             <span>MOA</span>
             <i />
             <strong>SAIE</strong>
             <i />
-            <span>ORDER</span>
+            <span>GALLERY</span>
           </div>
-          <p>모아 초대장의 버튼 링크에 작가명, 전시명, 갤러리명, 전시일, 초대장 ID를 담아 SAIE `/gift`로 연결합니다.</p>
-          <small>실제 API 연동 전에는 URL 정보로 주문 흐름을 완성하고, 이후 inviteId 기반 조회로 고도화합니다.</small>
+          <p>{content.integrationBody}</p>
+          <small>{content.integrationPrivacyNote}</small>
+          <ul className="moa-bullet-list">
+            {content.moaBullets.map((bullet) => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
         </div>
         <div className="lineup-box">
-          <h2>꽃 선택</h2>
+          <h2>갤러리 꽃선물</h2>
           <div className="lineup-grid">
             {content.products.map((product) => (
               <Link href={`/products/${product.slug}`} key={product.slug}>
@@ -151,8 +153,8 @@ export function HomeExperience() {
       </section>
 
       <section className="art-closing">
-        <h2>saie artist gift</h2>
-        <p>For the artist, from the invitation.</p>
+        <h2>saie gallery gift</h2>
+        <p>For the artist and the gallery, from the invitation.</p>
       </section>
     </main>
   );

@@ -12,13 +12,13 @@ async function render() {
   );
 }
 
-test("server-renders the SAIE art gift storefront", async () => {
+test("server-renders the SAIE gallery gift storefront", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
-  assert.match(html, /saie design studio|SAIE ART GIFT/);
-  assert.match(html, /작가에게 꽃선물하기|MOA × SAIE/);
+  assert.match(html, /saie gallery gift|SAIE GALLERY GIFT/);
+  assert.match(html, /MOA × SAIE|갤러리 꽃선물/);
   assert.match(html, /hero-cha-hwa\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
 });

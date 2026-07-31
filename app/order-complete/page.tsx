@@ -22,7 +22,7 @@ export default async function OrderCompletePage({ searchParams }: Props) {
           <h1 className="display">주문이 접수되었습니다.</h1>
           {orderNo && (
             <p>
-              주문번호는 <strong>{orderNo}</strong> 입니다. 관리자 확인 후 제작 가능 여부와 결제 안내를 연락처로
+              주문번호는 <strong>{orderNo}</strong> 입니다. 관리자가 제작 가능 여부와 배송 일정을 확인한 뒤 결제 안내를
               보내드립니다.
             </p>
           )}
@@ -31,8 +31,8 @@ export default async function OrderCompletePage({ searchParams }: Props) {
             <Link className="button" href={lookupHref}>
               주문조회
             </Link>
-            <Link className="button button-light" href="/products">
-              플라워 라인업 보기
+            <Link className="button button-light" href="/gift">
+              갤러리 꽃선물 보기
             </Link>
           </div>
         </section>
