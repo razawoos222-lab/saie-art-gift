@@ -74,24 +74,24 @@ const defaultHeroStyle: HeroStyle = {
 
 const benefits: Benefit[] = [
   {
-    title: "갤러리로 자동 배송",
-    body: "모아 초대장의 작가, 전시, 갤러리 정보가 상품 선택과 주문서까지 이어집니다.",
+    title: "초대장 링크 10% 할인",
+    body: "모아 초대장에서 들어온 주문은 모아 회원정보를 받지 않고도 10% 할인을 적용합니다.",
   },
   {
-    title: "MOA 회원 혜택",
-    body: "회원 여부가 확인되면 10% 할인 혜택을 적용할 수 있도록 구조를 준비합니다.",
+    title: "SAIE 가입 10% 적립",
+    body: "주문자가 SAIE 회원가입까지 완료하면 주문 기준 10% 적립 혜택을 운영할 수 있습니다.",
   },
   {
-    title: "SAIE 추가 혜택",
-    body: "SAIE 회원 전환 시 10% 적립 또는 추가 혜택을 운영할 수 있습니다.",
+    title: "전시 장소 자동 연결",
+    body: "초대장의 작가, 전시, 갤러리 정보가 상품 선택과 주문서까지 이어집니다.",
+  },
+  {
+    title: "개인정보 최소화",
+    body: "할인을 위해 모아 회원정보를 넘겨받지 않고, 주문과 배송에 필요한 정보만 받습니다.",
   },
   {
     title: "갤러리 무드 보호",
     body: "작품을 방해하지 않는 낮은 높이, 낮은 채도, 절제된 구성을 우선합니다.",
-  },
-  {
-    title: "상담 주문 가능",
-    body: "설치형 오브제나 기업 협찬 구성은 전화, 카카오 상담으로 이어집니다.",
   },
 ];
 
@@ -104,7 +104,7 @@ const steps: GiftStep[] = [
   {
     number: "02",
     title: "갤러리 꽃 선택",
-    body: "꽃바구니, 오프닝 테이블, 난, 플랜테리어, 아트 오브제 중 전시에 맞는 구성을 고릅니다.",
+    body: "전시에 맞는 꽃바구니, 오프닝 테이블, 난, 플랜테리어, 아트 오브제를 고릅니다.",
   },
   {
     number: "03",
@@ -114,12 +114,12 @@ const steps: GiftStep[] = [
   {
     number: "04",
     title: "주문/상담 접수",
-    body: "주문번호가 생성되고 SAIE가 제작, 배송, 결제 가능 여부를 확인합니다.",
+    body: "초대장 할인 적용 후 주문번호가 생성되고, SAIE가 제작과 배송 일정을 확인합니다.",
   },
 ];
 
 export const defaultSiteContent: SiteContent = {
-  notice: "MOA 초대장에 연결된 갤러리 전용 꽃선물 서비스입니다.",
+  notice: "MOA 초대장 링크로 들어온 주문은 10% 할인이 적용됩니다.",
   brandName: "SAIE STUDIO DESIGN",
   brandKoreanName: "사이스튜디오디자인",
   serviceName: "SAIE GALLERY GIFT",
@@ -131,7 +131,7 @@ export const defaultSiteContent: SiteContent = {
     "모아 초대장에 연결된 전시 장소로, 작가와 갤러리에 어울리는 꽃을 보냅니다. 작품이 먼저 보이도록 차분한 색과 낮은 높이, 조형적인 구성을 중심으로 제안합니다.",
   heroImage: "/hero-cha-hwa.png",
   heroStyle: defaultHeroStyle,
-  benefitsTitle: "초대장에서 바로 이어지는 갤러리 꽃선물",
+  benefitsTitle: "초대장 링크만으로 간단하게 받는 혜택",
   benefits,
   stepsTitle: "갤러리에 꽃을 보내는 4단계",
   steps,
@@ -139,15 +139,16 @@ export const defaultSiteContent: SiteContent = {
   integrationBody:
     "모아 초대장의 버튼 링크가 작가명, 전시명, 갤러리명, 전시일, 초대장 ID를 담아 SAIE /gift 페이지로 연결됩니다.",
   integrationPrivacyNote:
-    "실제 API 연동 전에는 URL 정보로 주문 흐름을 완성하고, 이후 inviteId 기반 조회와 암호화된 회원 혜택 검증으로 고도화합니다.",
+    "모아 회원정보를 직접 전달받아 검증하지 않고, 초대장 링크 유입 여부만 할인 조건으로 사용하면 개인정보 제공 범위와 보관 이슈를 줄일 수 있습니다.",
   moaHeadline: "작품을 살려주는 꽃, 갤러리로 바로 보내세요.",
   moaBody:
     "SAIE GALLERY GIFT는 모아 모바일초대장에서 바로 이어지는 작가와 갤러리 전용 플라워 주문 서비스입니다.",
   moaBullets: [
     "초대장 버튼에서 바로 꽃 선택 화면으로 이동",
+    "초대장 링크 유입 주문은 모아 회원정보 확인 없이 10% 할인",
+    "SAIE 회원가입 시 주문 기준 10% 적립 운영 가능",
     "작가, 전시, 갤러리 정보가 주문서까지 자동 유지",
     "꽃바구니, 오프닝 테이블, 난, 플랜테리어, 아트 오브제 중심 구성",
-    "전시장 분위기를 방해하지 않는 낮은 채도와 절제된 형태",
   ],
   csPhone: "02-000-0000",
   csKakao: "@saie",
@@ -157,7 +158,7 @@ export const defaultSiteContent: SiteContent = {
   paymentProvider: "토스페이먼츠",
   paymentDashboardNote:
     "PG 연결 후 결제 승인, 취소, 부분 환불, 현금영수증 발행 상태를 관리자에서 확인합니다.",
-  discountPolicy: "MOA 회원 10% 할인, SAIE 회원 10% 적립은 실제 회원 검증 연동 후 적용합니다.",
+  discountPolicy: "MOA 초대장 링크 유입 주문은 10% 할인, SAIE 회원가입 완료 시 10% 적립으로 운영합니다.",
   products,
   reviews: [
     {

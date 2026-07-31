@@ -121,7 +121,7 @@ body { background: #f5f0e8; color: #1d1a16; }
 .phone-step > h3 { margin: 8px 0 6px; font-size: 19px; font-weight: 500; }
 .phone-step > p:last-child { margin: 0 auto; max-width: 210px; color: #5a5149; font-size: 13px; }
 .art-info-band { display: grid; grid-template-columns: .86fr 1.14fr; gap: clamp(24px, 5vw, 58px); margin-top: 34px; }
-.integration-box { display: grid; align-content: start; gap: 20px; padding-right: 30px; border-right: 1px solid rgb(29 26 22 / 10%); text-align: center; }
+.integration-box { display: grid; align-content: start; gap: 20px; padding-left: 30px; border-left: 1px solid rgb(29 26 22 / 10%); text-align: center; }
 .integration-box h2, .lineup-box h2 { margin: 0; font-family: var(--font-serif), serif; font-size: 24px; font-weight: 500; }
 .integration-chain { display: grid; grid-template-columns: 70px 1fr 84px 1fr 70px; gap: 10px; align-items: center; }
 .integration-chain span, .integration-chain strong { display: inline-flex; min-height: 70px; align-items: center; justify-content: center; border: 1px solid rgb(29 26 22 / 18%); background: #fffaf1; font-family: var(--font-serif), serif; font-size: 16px; }
@@ -144,6 +144,8 @@ body { background: #f5f0e8; color: #1d1a16; }
 .readonly-grid div { padding: 14px; border: 1px solid rgb(29 26 22 / 12%); background: #fffdf8; }
 .readonly-grid span { display: block; color: #6b6259; font-size: 12px; }
 .readonly-grid strong { display: block; margin-top: 5px; font-size: 15px; font-weight: 500; }
+.benefit-note { margin: 10px 0 0; padding: 12px 14px; background: #fff4dc; color: #5b4631; font-size: 13px; line-height: 1.6; }
+.benefit-line strong { color: #9f2f22; }
 .message-samples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .message-samples button { padding: 8px 10px; border: 1px solid rgb(29 26 22 / 18%); background: transparent; color: #1d1a16; font-size: 12px; }
 
@@ -153,7 +155,7 @@ body { background: #f5f0e8; color: #1d1a16; }
   .art-hero-image { min-height: 280px; }
   .benefit-grid, .phone-grid { grid-template-columns: 1fr 1fr; }
   .benefit-grid article:nth-child(odd) { border-left: 0; }
-  .integration-box { padding-right: 0; border-right: 0; border-bottom: 1px solid rgb(29 26 22 / 10%); padding-bottom: 26px; }
+  .integration-box { padding-left: 0; border-left: 0; border-top: 1px solid rgb(29 26 22 / 10%); padding-top: 26px; }
 }
 
 @media (max-width: 560px) {

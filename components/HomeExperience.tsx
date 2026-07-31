@@ -53,6 +53,38 @@ export function HomeExperience() {
         </div>
       </section>
 
+      <section className="art-info-band">
+        <div className="lineup-box">
+          <h2>갤러리 꽃선물</h2>
+          <div className="lineup-grid">
+            {content.products.map((product) => (
+              <Link href={`/products/${product.slug}`} key={product.slug}>
+                <img src={product.image} alt={product.name} />
+                <strong>{product.name}</strong>
+                <span>{displayPrice(product)}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="integration-box">
+          <h2>{content.moaHeadline}</h2>
+          <div className="integration-chain">
+            <span>MOA</span>
+            <i />
+            <strong>SAIE</strong>
+            <i />
+            <span>GALLERY</span>
+          </div>
+          <p>{content.integrationBody}</p>
+          <small>{content.integrationPrivacyNote}</small>
+          <ul className="moa-bullet-list">
+            {content.moaBullets.map((bullet) => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="phone-flow">
         <div className="flow-title">
           <span />
@@ -112,8 +144,8 @@ export function HomeExperience() {
                         <dd>{featured.name}</dd>
                       </div>
                       <div>
-                        <dt>전시</dt>
-                        <dd>시간의 결</dd>
+                        <dt>할인</dt>
+                        <dd>초대장 링크 10%</dd>
                       </div>
                       <div>
                         <dt>상태</dt>
@@ -129,38 +161,6 @@ export function HomeExperience() {
               <p>{step.body}</p>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="art-info-band">
-        <div className="integration-box">
-          <h2>{content.moaHeadline}</h2>
-          <div className="integration-chain">
-            <span>MOA</span>
-            <i />
-            <strong>SAIE</strong>
-            <i />
-            <span>GALLERY</span>
-          </div>
-          <p>{content.integrationBody}</p>
-          <small>{content.integrationPrivacyNote}</small>
-          <ul className="moa-bullet-list">
-            {content.moaBullets.map((bullet) => (
-              <li key={bullet}>{bullet}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="lineup-box">
-          <h2>갤러리 꽃선물</h2>
-          <div className="lineup-grid">
-            {content.products.map((product) => (
-              <Link href={`/products/${product.slug}`} key={product.slug}>
-                <img src={product.image} alt={product.name} />
-                <strong>{product.name}</strong>
-                <span>{displayPrice(product)}</span>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 

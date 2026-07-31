@@ -22,7 +22,19 @@ export function CheckoutForm() {
   const galleryAddress = searchParams.get("galleryAddress") ?? searchParams.get("address") ?? invite.galleryAddress ?? invite.address ?? "";
   const date = searchParams.get("date") ?? invite.date ?? "";
   const inviteId = searchParams.get("inviteId") ?? invite.inviteId ?? "";
-  const hasMoaBenefit = (searchParams.get("moaMember") ?? invite.moaMember) === "true";
+  const hasInviteBenefit = Boolean(
+    searchParams.get("inviteId") ||
+      invite.inviteId ||
+      searchParams.get("artist") ||
+      invite.artist ||
+      searchParams.get("exhibition") ||
+      invite.exhibition ||
+      searchParams.get("gallery") ||
+      invite.gallery,
+  );
+  const inviteDiscount = hasInviteBenefit ? Math.round(total * 0.1) : 0;
+  const finalTotal = Math.max(0, total - inviteDiscount);
+  const saiePointEstimate = Math.round(finalTotal * 0.1);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -49,7 +61,10 @@ export function CheckoutForm() {
         quantity,
         image: product.image,
       })),
-      total,
+      total: finalTotal,
+      subtotal: total,
+      inviteDiscount,
+      saiePointEstimate,
     };
 
     try {
@@ -118,6 +133,9 @@ export function CheckoutForm() {
               <strong>{inviteId || "MOA 연동 대기"}</strong>
             </div>
           </div>
+          {hasInviteBenefit && (
+            <p className="benefit-note">MOA 초대장 링크 유입으로 10% 할인이 적용됩니다.</p>
+          )}
           <div className="field">
             <label htmlFor="delivery-date">배송/설치 희망일</label>
             <input id="delivery-date" name="deliveryDate" required type="date" defaultValue={date} />
@@ -172,6 +190,20 @@ export function CheckoutForm() {
         ))}
         <hr />
         <div className="mini-line">
+          <span>상품 금액</span>
+          <strong>{formatPrice(total)}</strong>
+        </div>
+        {hasInviteBenefit && (
+          <div className="mini-line benefit-line">
+            <span>MOA 초대장 할인</span>
+            <strong>-{formatPrice(inviteDiscount)}</strong>
+          </div>
+        )}
+        <div className="mini-line">
+          <span>SAIE 가입 예상 적립</span>
+          <strong>{formatPrice(saiePointEstimate)}</strong>
+        </div>
+        <div className="mini-line">
           <span>전시</span>
           <strong>{exhibition}</strong>
         </div>
@@ -179,15 +211,9 @@ export function CheckoutForm() {
           <span>받는 작가</span>
           <strong>{artist}</strong>
         </div>
-        {hasMoaBenefit && (
-          <div className="mini-line">
-            <span>MOA 회원 혜택</span>
-            <strong>10% 할인 확인</strong>
-          </div>
-        )}
         <div className="cart-grand-total">
           <span>총 주문 금액</span>
-          <strong>{formatPrice(total)}</strong>
+          <strong>{formatPrice(finalTotal)}</strong>
         </div>
         <p className="payment-notice">
           {content.paymentProvider}: {content.paymentStatus}

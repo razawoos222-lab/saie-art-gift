@@ -21,7 +21,6 @@ export const products: Product[] = [
     category: "오프닝 테이블",
     price: 90000,
     priceNote: "90,000원 ~",
-    discountPercent: 10,
     summary: "작가 테이블과 리셉션에 낮게 놓이는 갤러리 플라워",
     description:
       "전시 오프닝의 작가 테이블, 리셉션 데스크, 방명록 근처에 어울리는 낮은 높이의 플라워 구성입니다. 작품 시선을 방해하지 않도록 채도와 형태를 절제합니다.",
@@ -37,7 +36,6 @@ export const products: Product[] = [
     category: "꽃바구니",
     price: 120000,
     priceNote: "120,000원 ~",
-    discountPercent: 10,
     summary: "갤러리 분위기를 해치지 않는 차분한 꽃바구니",
     description:
       "강한 색감이나 과한 축하 장식 대신 낮은 채도의 꽃과 그린 소재로 구성한 전시 축하 꽃바구니입니다. 작가와 갤러리에 격식 있게 선물하기 좋습니다.",
