@@ -17,8 +17,21 @@ export type GiftStep = {
   body: string;
 };
 
+export type HeroStyle = {
+  titleSize: number;
+  titleLineHeight: number;
+  subtitleSize: number;
+  bodySize: number;
+  bodyLineHeight: number;
+  textGap: number;
+  imageHeight: number;
+  imageSaturation: number;
+};
+
 export type SiteContent = {
   notice: string;
+  brandName: string;
+  brandKoreanName: string;
   serviceName: string;
   serviceSubtitle: string;
   ctaLabel: string;
@@ -26,6 +39,7 @@ export type SiteContent = {
   heroTitle: string;
   heroBody: string;
   heroImage: string;
+  heroStyle: HeroStyle;
   benefitsTitle: string;
   benefits: Benefit[];
   stepsTitle: string;
@@ -45,6 +59,17 @@ export type SiteContent = {
   discountPolicy: string;
   products: Product[];
   reviews: Review[];
+};
+
+const defaultHeroStyle: HeroStyle = {
+  titleSize: 72,
+  titleLineHeight: 1.18,
+  subtitleSize: 19,
+  bodySize: 16,
+  bodyLineHeight: 1.9,
+  textGap: 28,
+  imageHeight: 460,
+  imageSaturation: 78,
 };
 
 const benefits: Benefit[] = [
@@ -95,14 +120,17 @@ const steps: GiftStep[] = [
 
 export const defaultSiteContent: SiteContent = {
   notice: "MOA 초대장에 연결된 갤러리 전용 꽃선물 서비스입니다.",
+  brandName: "SAIE STUDIO DESIGN",
+  brandKoreanName: "사이스튜디오디자인",
   serviceName: "SAIE GALLERY GIFT",
   serviceSubtitle: "작가와 갤러리에 보내는 꽃선물",
   ctaLabel: "갤러리 꽃선물 고르기",
   heroEyebrow: "MOA × SAIE",
-  heroTitle: "saie gallery gift",
+  heroTitle: "갤러리 전시의 순간을 꽃으로 전합니다.",
   heroBody:
     "모아 초대장에 연결된 전시 장소로, 작가와 갤러리에 어울리는 꽃을 보냅니다. 작품이 먼저 보이도록 차분한 색과 낮은 높이, 조형적인 구성을 중심으로 제안합니다.",
   heroImage: "/hero-cha-hwa.png",
+  heroStyle: defaultHeroStyle,
   benefitsTitle: "초대장에서 바로 이어지는 갤러리 꽃선물",
   benefits,
   stepsTitle: "갤러리에 꽃을 보내는 4단계",
@@ -155,9 +183,30 @@ function hasBrokenEncoding(value: unknown) {
   return value.includes("\uFFFD") || /[\u4e00-\u9fff\uf900-\ufaff]/.test(value);
 }
 
+function clampNumber(value: unknown, fallback: number, min: number, max: number) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return fallback;
+  return Math.min(max, Math.max(min, number));
+}
+
+function normalizeHeroStyle(value: Partial<HeroStyle> | undefined): HeroStyle {
+  return {
+    titleSize: clampNumber(value?.titleSize, defaultHeroStyle.titleSize, 32, 110),
+    titleLineHeight: clampNumber(value?.titleLineHeight, defaultHeroStyle.titleLineHeight, 0.9, 1.8),
+    subtitleSize: clampNumber(value?.subtitleSize, defaultHeroStyle.subtitleSize, 12, 32),
+    bodySize: clampNumber(value?.bodySize, defaultHeroStyle.bodySize, 12, 24),
+    bodyLineHeight: clampNumber(value?.bodyLineHeight, defaultHeroStyle.bodyLineHeight, 1.2, 2.4),
+    textGap: clampNumber(value?.textGap, defaultHeroStyle.textGap, 8, 72),
+    imageHeight: clampNumber(value?.imageHeight, defaultHeroStyle.imageHeight, 240, 760),
+    imageSaturation: clampNumber(value?.imageSaturation, defaultHeroStyle.imageSaturation, 0, 140),
+  };
+}
+
 function contentHasBrokenEncoding(content: SiteContent) {
   const strings = [
     content.notice,
+    content.brandName,
+    content.brandKoreanName,
     content.serviceName,
     content.serviceSubtitle,
     content.ctaLabel,
@@ -194,6 +243,9 @@ export function normalizeSiteContent(value: Partial<SiteContent> | null | undefi
   const base = {
     ...defaultSiteContent,
     ...value,
+    brandName: value?.brandName || defaultSiteContent.brandName,
+    brandKoreanName: value?.brandKoreanName || defaultSiteContent.brandKoreanName,
+    heroStyle: normalizeHeroStyle(value?.heroStyle),
     benefits: value?.benefits?.length ? value.benefits : defaultSiteContent.benefits,
     steps: value?.steps?.length ? value.steps : defaultSiteContent.steps,
     moaBullets: value?.moaBullets?.length ? value.moaBullets : defaultSiteContent.moaBullets,

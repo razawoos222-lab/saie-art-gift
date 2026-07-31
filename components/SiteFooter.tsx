@@ -1,12 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { useSiteContent } from "./SiteContentContext";
 
 export function SiteFooter() {
+  const { content } = useSiteContent();
+
   return (
     <footer className="site-footer art-footer">
       <div className="footer-inner">
         <div>
-          <p className="footer-title">saie artist gift</p>
-          <p>MOA 초대장에서 이어지는 갤러리 전용 플라워 기프트.</p>
+          <p className="footer-title">{content.brandName}</p>
+          <p>{content.serviceSubtitle}</p>
         </div>
         <div className="footer-links">
           <Link href="/gift">꽃 선택</Link>

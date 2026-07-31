@@ -9,6 +9,36 @@ function updateAt<T>(items: T[], index: number, patch: Partial<T>) {
   return items.map((item, currentIndex) => (currentIndex === index ? { ...item, ...patch } : item));
 }
 
+function NumberField({
+  label,
+  value,
+  min,
+  max,
+  step = 1,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <div className="field">
+      <label>{label}</label>
+      <input
+        type="number"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(event) => onChange(Number(event.target.value))}
+      />
+    </div>
+  );
+}
+
 function ImageUpload({
   label,
   slot,
@@ -75,20 +105,42 @@ function AdminDraftForm({
 }) {
   const [draft, setDraft] = useState<SiteContent>(initialContent);
 
+  function updateHeroStyle(patch: Partial<SiteContent["heroStyle"]>) {
+    setDraft({ ...draft, heroStyle: { ...draft.heroStyle, ...patch } });
+  }
+
   return (
     <main className="admin-page">
       <section className="page-intro">
         <div className="container">
           <p className="eyebrow">SAIE admin</p>
-          <h1 className="display">모바일초대장 꽃선물 서비스를 관리합니다.</h1>
-          <p>로그인 {userEmail}</p>
+          <h1 className="display">사이트 문구와 상품을 관리합니다.</h1>
+          <p>로그인 계정: {userEmail}</p>
         </div>
       </section>
 
       <section className="container admin-layout">
         <div className="admin-main">
           <section className="admin-section">
-            <h2>메인 화면</h2>
+            <h2>브랜드와 메인 화면</h2>
+            <div className="admin-two">
+              <div className="field">
+                <label htmlFor="brand-name">상단 브랜드명</label>
+                <input
+                  id="brand-name"
+                  value={draft.brandName}
+                  onChange={(event) => setDraft({ ...draft, brandName: event.target.value })}
+                />
+              </div>
+              <div className="field">
+                <label htmlFor="brand-korean-name">브랜드 한글명</label>
+                <input
+                  id="brand-korean-name"
+                  value={draft.brandKoreanName}
+                  onChange={(event) => setDraft({ ...draft, brandKoreanName: event.target.value })}
+                />
+              </div>
+            </div>
             <div className="admin-two">
               <div className="field">
                 <label htmlFor="service-name">서비스명</label>
@@ -108,8 +160,24 @@ function AdminDraftForm({
               </div>
             </div>
             <div className="field">
-              <label htmlFor="notice">상단 노티스</label>
+              <label htmlFor="notice">상단 안내문</label>
               <input id="notice" value={draft.notice} onChange={(event) => setDraft({ ...draft, notice: event.target.value })} />
+            </div>
+            <div className="field">
+              <label htmlFor="hero-eyebrow">메인 작은 문구</label>
+              <input
+                id="hero-eyebrow"
+                value={draft.heroEyebrow}
+                onChange={(event) => setDraft({ ...draft, heroEyebrow: event.target.value })}
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="service-subtitle">메인 부제</label>
+              <input
+                id="service-subtitle"
+                value={draft.serviceSubtitle}
+                onChange={(event) => setDraft({ ...draft, serviceSubtitle: event.target.value })}
+              />
             </div>
             <div className="field">
               <label htmlFor="hero-title">메인 타이틀</label>
@@ -135,6 +203,20 @@ function AdminDraftForm({
                 onChange={(event) => setDraft({ ...draft, heroImage: event.target.value })}
               />
               <ImageUpload label="메인 이미지 업로드" slot="hero" onUploaded={(url) => setDraft({ ...draft, heroImage: url })} />
+            </div>
+          </section>
+
+          <section className="admin-section">
+            <h2>메인 타이포와 간격</h2>
+            <div className="admin-two">
+              <NumberField label="타이틀 크기(px)" value={draft.heroStyle.titleSize} min={32} max={110} onChange={(value) => updateHeroStyle({ titleSize: value })} />
+              <NumberField label="타이틀 줄간격" value={draft.heroStyle.titleLineHeight} min={0.9} max={1.8} step={0.05} onChange={(value) => updateHeroStyle({ titleLineHeight: value })} />
+              <NumberField label="부제 크기(px)" value={draft.heroStyle.subtitleSize} min={12} max={32} onChange={(value) => updateHeroStyle({ subtitleSize: value })} />
+              <NumberField label="본문 크기(px)" value={draft.heroStyle.bodySize} min={12} max={24} onChange={(value) => updateHeroStyle({ bodySize: value })} />
+              <NumberField label="본문 줄간격" value={draft.heroStyle.bodyLineHeight} min={1.2} max={2.4} step={0.05} onChange={(value) => updateHeroStyle({ bodyLineHeight: value })} />
+              <NumberField label="문구 사이 간격(px)" value={draft.heroStyle.textGap} min={8} max={72} onChange={(value) => updateHeroStyle({ textGap: value })} />
+              <NumberField label="메인 이미지 높이(px)" value={draft.heroStyle.imageHeight} min={240} max={760} onChange={(value) => updateHeroStyle({ imageHeight: value })} />
+              <NumberField label="이미지 채도(%)" value={draft.heroStyle.imageSaturation} min={0} max={140} onChange={(value) => updateHeroStyle({ imageSaturation: value })} />
             </div>
           </section>
 
@@ -238,6 +320,16 @@ function AdminDraftForm({
                     </div>
                     <div className="admin-two">
                       <div className="field">
+                        <label htmlFor={`product-category-${index}`}>카테고리</label>
+                        <input
+                          id={`product-category-${index}`}
+                          value={product.category}
+                          onChange={(event) =>
+                            setDraft({ ...draft, products: updateAt(draft.products, index, { category: event.target.value }) })
+                          }
+                        />
+                      </div>
+                      <div className="field">
                         <label htmlFor={`product-price-${index}`}>기준가</label>
                         <input
                           id={`product-price-${index}`}
@@ -251,6 +343,8 @@ function AdminDraftForm({
                           }
                         />
                       </div>
+                    </div>
+                    <div className="admin-two">
                       <div className="field">
                         <label htmlFor={`product-discount-${index}`}>할인율</label>
                         <input
@@ -267,19 +361,19 @@ function AdminDraftForm({
                           }
                         />
                       </div>
-                    </div>
-                    <div className="field">
-                      <label htmlFor={`product-price-note-${index}`}>표시 가격</label>
-                      <input
-                        id={`product-price-note-${index}`}
-                        value={product.priceNote ?? ""}
-                        onChange={(event) =>
-                          setDraft({
-                            ...draft,
-                            products: updateAt(draft.products, index, { priceNote: event.target.value }),
-                          })
-                        }
-                      />
+                      <div className="field">
+                        <label htmlFor={`product-price-note-${index}`}>표시 가격</label>
+                        <input
+                          id={`product-price-note-${index}`}
+                          value={product.priceNote ?? ""}
+                          onChange={(event) =>
+                            setDraft({
+                              ...draft,
+                              products: updateAt(draft.products, index, { priceNote: event.target.value }),
+                            })
+                          }
+                        />
+                      </div>
                     </div>
                     <div className="field">
                       <label htmlFor={`product-image-${index}`}>이미지 URL</label>
@@ -305,6 +399,19 @@ function AdminDraftForm({
                           setDraft({
                             ...draft,
                             products: updateAt(draft.products, index, { summary: event.target.value }),
+                          })
+                        }
+                      />
+                    </div>
+                    <div className="field">
+                      <label htmlFor={`product-description-${index}`}>상세 설명</label>
+                      <textarea
+                        id={`product-description-${index}`}
+                        value={product.description}
+                        onChange={(event) =>
+                          setDraft({
+                            ...draft,
+                            products: updateAt(draft.products, index, { description: event.target.value }),
                           })
                         }
                       />
@@ -397,7 +504,7 @@ function AdminDraftForm({
             {saveState === "saving" ? "저장 중" : "변경사항 저장"}
           </button>
           {saveState === "saved" && <p className="success-text">저장되었습니다.</p>}
-          {saveState === "error" && <p className="error-text">저장에 실패했습니다. 로그인 또는 저장소 연결을 확인하세요.</p>}
+          {saveState === "error" && <p className="error-text">저장에 실패했습니다. 로그인 또는 저장소 연결을 확인해 주세요.</p>}
         </aside>
       </section>
     </main>

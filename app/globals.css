@@ -77,8 +77,8 @@ a { color: inherit; text-decoration: none; } button, input, select, textarea { f
 
 body { background: #f5f0e8; color: #1d1a16; }
 .site-header { height: 64px; background: rgb(245 240 232 / 92%); border-bottom: 1px solid rgb(29 26 22 / 10%); }
-.brand { color: #1d1a16; font-family: var(--font-serif), serif; font-size: 25px; font-weight: 500; letter-spacing: 0; text-transform: lowercase; }
-.brand small { display: block; margin: -7px 0 0 2px; font-size: 9px; font-weight: 500; letter-spacing: 0; text-transform: lowercase; }
+.brand { color: #1d1a16; font-family: var(--font-serif), serif; font-size: 20px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.brand small { display: none; }
 .nav { color: #1d1a16; }
 .nav .nav-action, .button, .art-button { background: #18130f; border-color: #18130f; color: #fffaf1; }
 .button-light { background: transparent; color: #18130f; }
@@ -87,12 +87,12 @@ body { background: #f5f0e8; color: #1d1a16; }
 .art-hero { display: grid; grid-template-columns: minmax(320px, .9fr) minmax(360px, 1.1fr); min-height: 520px; align-items: center; gap: clamp(24px, 5vw, 80px); padding: clamp(42px, 7vw, 82px) clamp(24px, 7vw, 92px); border-bottom: 1px solid rgb(29 26 22 / 10%); }
 .art-hero-copy { max-width: 530px; }
 .art-kicker { margin: 0 0 26px; font-size: 15px; letter-spacing: .22em; text-transform: uppercase; }
-.art-hero h1 { margin: 0; font-family: var(--font-serif), serif; font-size: clamp(56px, 9vw, 96px); font-weight: 400; line-height: .98; letter-spacing: 0; text-transform: lowercase; }
-.art-hero strong { display: block; margin-top: 28px; font-size: 19px; font-weight: 500; }
-.art-hero p:not(.art-kicker) { max-width: 430px; margin: 26px 0 30px; color: #36302b; line-height: 1.9; }
+.art-hero h1 { margin: 0; font-family: var(--font-serif), serif; font-size: clamp(38px, 7.2vw, var(--hero-title-size, 72px)); font-weight: 400; line-height: var(--hero-title-line-height, 1.18); letter-spacing: 0; text-transform: none; }
+.art-hero strong { display: block; margin-top: var(--hero-text-gap, 28px); font-size: var(--hero-subtitle-size, 19px); font-weight: 500; }
+.art-hero p:not(.art-kicker) { max-width: 480px; margin: var(--hero-text-gap, 28px) 0 30px; color: #36302b; font-size: var(--hero-body-size, 16px); line-height: var(--hero-body-line-height, 1.9); }
 .art-button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; padding: 13px 22px; font-size: 14px; }
 .art-hero-image { align-self: stretch; min-height: 420px; display: grid; align-items: end; overflow: hidden; }
-.art-hero-image img { width: 100%; height: min(460px, 58vw); object-fit: cover; object-position: center; filter: saturate(.78); }
+.art-hero-image img { width: 100%; height: min(var(--hero-image-height, 460px), 58vw); object-fit: cover; object-position: center; filter: saturate(var(--hero-image-saturation, 78%)); }
 .art-benefit-panel, .art-info-band { width: min(1160px, calc(100% - 40px)); margin: 18px auto 0; padding: 30px clamp(18px, 4vw, 44px); border: 1px solid rgb(29 26 22 / 8%); background: rgb(255 251 245 / 55%); border-radius: 18px; }
 .benefit-title, .flow-title { display: grid; grid-template-columns: 1fr auto 1fr; gap: 18px; align-items: center; margin-bottom: 24px; text-align: center; }
 .benefit-title span, .flow-title span { height: 1px; background: rgb(29 26 22 / 20%); }
@@ -158,11 +158,11 @@ body { background: #f5f0e8; color: #1d1a16; }
 
 @media (max-width: 560px) {
   .site-header { height: auto; min-height: 62px; padding: 10px 16px; }
-  .brand { font-size: 22px; }
+  .brand { font-size: 15px; letter-spacing: .06em; }
   .nav { gap: 8px; }
   .nav a:not(.nav-action), .cart-button { display: none; }
   .nav .nav-action { display: inline-flex; min-height: 36px; align-items: center; padding: 7px 10px; font-size: 11px; }
-  .art-hero h1 { font-size: 54px; }
+  .art-hero h1 { font-size: min(var(--hero-title-size, 54px), 54px); }
   .art-hero-copy p:not(.art-kicker) { font-size: 14px; }
   .art-benefit-panel, .art-info-band, .phone-flow { width: calc(100% - 24px); }
   .benefit-grid, .phone-grid, .lineup-grid, .readonly-grid { grid-template-columns: 1fr; }

@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { displayPrice } from "../lib/products";
 import { useSiteContent } from "./SiteContentContext";
@@ -7,10 +8,21 @@ import { useSiteContent } from "./SiteContentContext";
 export function HomeExperience() {
   const { content } = useSiteContent();
   const featured = content.products.find((product) => product.slug === "opening-table") ?? content.products[0];
+  const heroStyle = content.heroStyle;
+  const heroCssVars = {
+    "--hero-title-size": `${heroStyle.titleSize}px`,
+    "--hero-title-line-height": heroStyle.titleLineHeight,
+    "--hero-subtitle-size": `${heroStyle.subtitleSize}px`,
+    "--hero-body-size": `${heroStyle.bodySize}px`,
+    "--hero-body-line-height": heroStyle.bodyLineHeight,
+    "--hero-text-gap": `${heroStyle.textGap}px`,
+    "--hero-image-height": `${heroStyle.imageHeight}px`,
+    "--hero-image-saturation": `${heroStyle.imageSaturation}%`,
+  } as CSSProperties;
 
   return (
     <main className="art-gift">
-      <section className="art-hero">
+      <section className="art-hero" style={heroCssVars}>
         <div className="art-hero-copy">
           <p className="art-kicker">{content.heroEyebrow}</p>
           <h1>{content.heroTitle}</h1>
@@ -153,7 +165,7 @@ export function HomeExperience() {
       </section>
 
       <section className="art-closing">
-        <h2>saie gallery gift</h2>
+        <h2>{content.brandName}</h2>
         <p>For the artist and the gallery, from the invitation.</p>
       </section>
     </main>
