@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { displayPrice, formatPrice } from "../lib/products";
+import { displayPrice, formatPrice, inviteSalePrice, pointAmount } from "../lib/products";
 import { useCart } from "./CartContext";
 import { useSiteContent } from "./SiteContentContext";
 import { useMoaInvite } from "./useMoaInvite";
@@ -25,6 +25,9 @@ export function ProductDetailView({ slug }: { slug: string }) {
     );
   }
 
+  const sale = inviteSalePrice(product);
+  const points = pointAmount(sale);
+
   return (
     <main className="container">
       <div className="product-page art-product-page">
@@ -34,7 +37,20 @@ export function ProductDetailView({ slug }: { slug: string }) {
         <div>
           <p className="eyebrow">{content.serviceName}</p>
           <h1>{product.name}</h1>
-          <p className="product-price">{displayPrice(product)}</p>
+          <div className="detail-price-box">
+            <div>
+              <span>정가</span>
+              <strong>{displayPrice(product)}</strong>
+            </div>
+            <div>
+              <span>MOA 초대장 10% 할인가</span>
+              <strong>{formatPrice(sale)} ~</strong>
+            </div>
+            <div>
+              <span>SAIE 가입 10% 적립</span>
+              <strong>{formatPrice(points)}</strong>
+            </div>
+          </div>
           <p className="description">{product.description}</p>
           <dl className="detail-list">
             <div>
@@ -66,21 +82,39 @@ export function ProductDetailView({ slug }: { slug: string }) {
           <div className="section-head compact">
             <div>
               <p className="eyebrow">Options</p>
-              <h2 className="section-title">세부 옵션</h2>
+              <h2 className="section-title">세부 꽃 구성</h2>
             </div>
-            <p>전시 규모와 설치 위치에 따라 원하는 구성을 선택할 수 있습니다.</p>
+            <p>전시 규모와 설치 위치에 따라 같은 주제 안에서도 여러 가지 구성을 선택할 수 있습니다.</p>
           </div>
           <div className="product-option-grid">
-            {product.options.map((option) => (
-              <article className="product-option-card" key={option.name}>
-                {option.image && <img src={option.image} alt={option.name} />}
-                <div>
-                  <span>{option.tag ?? (option.priceDelta ? `+${formatPrice(option.priceDelta)}` : "기본")}</span>
-                  <h3>{option.name}</h3>
-                  <p>{option.description}</p>
-                </div>
-              </article>
-            ))}
+            {product.options.map((option) => {
+              const optionPrice = product.price + (option.priceDelta ?? 0);
+              const optionSale = Math.round(optionPrice * 0.9);
+              return (
+                <article className="product-option-card" key={option.name}>
+                  {option.image && <img src={option.image} alt={option.name} />}
+                  <div>
+                    <span>{option.tag ?? "옵션"}</span>
+                    <h3>{option.name}</h3>
+                    <p>{option.description}</p>
+                    <dl className="option-price-list">
+                      <div>
+                        <dt>정가</dt>
+                        <dd>{formatPrice(optionPrice)}</dd>
+                      </div>
+                      <div>
+                        <dt>10% 할인가</dt>
+                        <dd>{formatPrice(optionSale)}</dd>
+                      </div>
+                      <div>
+                        <dt>가입 적립</dt>
+                        <dd>{formatPrice(pointAmount(optionSale))}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
       )}

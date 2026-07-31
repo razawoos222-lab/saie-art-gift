@@ -1,5 +1,7 @@
 import { products, type Product } from "./products";
 
+export const SITE_CONTENT_VERSION = 4;
+
 export type Review = {
   name: string;
   context: string;
@@ -30,6 +32,7 @@ export type HeroStyle = {
 };
 
 export type SiteContent = {
+  contentVersion: number;
   notice: string;
   brandName: string;
   brandKoreanName: string;
@@ -70,25 +73,25 @@ const defaultHeroStyle: HeroStyle = {
   bodyLineHeight: 1.85,
   textGap: 26,
   imageHeight: 460,
-  imageSaturation: 62,
+  imageSaturation: 58,
 };
 
 const benefits: Benefit[] = [
   {
     title: "초대장 링크 10% 할인",
-    body: "모아 초대장에서 들어온 주문은 회원 정보 확인 없이 10% 할인을 적용합니다.",
+    body: "모아 초대장에서 들어온 주문은 회원정보 확인 없이 10% 할인을 적용합니다.",
   },
   {
     title: "SAIE 가입 10% 적립",
-    body: "SAIE 회원가입을 완료하면 주문 기준 10% 적립 혜택을 운영할 수 있습니다.",
+    body: "SAIE 회원가입을 완료하면 최종 주문 금액 기준 10% 적립 예정 금액을 확인할 수 있습니다.",
   },
   {
     title: "전시 정보 자동 반영",
-    body: "작가명, 전시명, 갤러리명이 주문서에 자동으로 표시되어 입력 부담을 줄입니다.",
+    body: "작가명, 전시명, 갤러리명, 전시장 주소가 주문서에 자동 표시됩니다.",
   },
   {
     title: "개인정보 최소 수집",
-    body: "배송과 주문 확인에 필요한 정보만 받고, 모아 회원 개인정보는 받지 않습니다.",
+    body: "모아 회원정보를 받지 않고 주문, 배송, 상담에 필요한 정보만 수집합니다.",
   },
   {
     title: "갤러리 무드 보호",
@@ -105,22 +108,23 @@ const steps: GiftStep[] = [
   {
     number: "02",
     title: "선물 선택",
-    body: "작가 선물, 테이블 오브제, 행사 오브제, 조화시공 중 전시에 맞는 구성을 고릅니다.",
+    body: "작가 선물, 전시 선물, 갤러리 행사, 조화시공 중 전시에 맞는 구성을 고릅니다.",
   },
   {
     number: "03",
     title: "메시지 작성",
-    body: "작가에게 전할 축하 메시지와 요청 사항을 남깁니다.",
+    body: "작가에게 전할 축하 메시지와 배송/설치 희망일을 남깁니다.",
   },
   {
     number: "04",
     title: "주문 접수",
-    body: "초대장 할인 적용 후 주문이 접수되고 SAIE가 제작과 배송 일정을 확인합니다.",
+    body: "10% 할인과 10% 적립 예정 금액을 확인한 뒤 주문을 접수합니다.",
   },
 ];
 
 export const defaultSiteContent: SiteContent = {
-  notice: "모아 초대장에서 들어온 주문은 10% 할인이 적용됩니다.",
+  contentVersion: SITE_CONTENT_VERSION,
+  notice: "MOA 초대장 링크 주문은 10% 할인, SAIE 회원가입 시 10% 적립 혜택이 적용됩니다.",
   brandName: "SAIE STUDIO DESIGN",
   brandKoreanName: "사이 스튜디오 디자인",
   serviceName: "SAIE ARTIST GIFT",
@@ -129,34 +133,30 @@ export const defaultSiteContent: SiteContent = {
   heroEyebrow: "MOA × SAIE",
   heroTitle: "작가의 순간에,\n꽃으로 남기는 축하.",
   heroBody:
-    "모아 초대장에서 바로 이어지는 작가 전용 꽃선물 서비스입니다. SAIE는 작품과 갤러리 공간을 해치지 않도록 낮은 채도, 낮은 높이, 절제된 형태의 플라워 오브제를 제안합니다.",
+    "모아 초대장에서 바로 이어지는 작가 전용 꽃선물 서비스입니다. 작품과 갤러리 공간을 해치지 않도록 낮은 채도, 낮은 높이, 절제된 형태의 플라워 오브제를 제안합니다.",
   heroImage: "/hero-saie-art-gift.png",
   heroStyle: defaultHeroStyle,
   benefitsTitle: "초대장 링크만으로 간단하게 받는 혜택",
   benefits,
   stepsTitle: "작가에게 꽃을 보내는 4단계",
   steps,
-  integrationTitle: "모아 초대장 연결",
-  integrationBody:
-    "모아 초대장 링크에 담긴 작가명, 전시명, 갤러리명, 전시일 정보를 주문서에 반영합니다.",
+  integrationTitle: "MOA 초대장 연결",
+  integrationBody: "모아 초대장 링크에 포함된 작가명, 전시명, 갤러리명, 전시일 정보를 주문서에 반영합니다.",
   integrationPrivacyNote: "주문과 배송에 필요한 최소 정보만 확인합니다.",
   moaHeadline: "모아 초대장에서 바로 이어지는 작가 꽃선물",
-  moaBody:
-    "초대장을 받은 고객이 별도 검색 없이 작가에게 꽃과 메시지를 보낼 수 있도록 구성합니다.",
+  moaBody: "초대장을 받은 고객이 별도 검색 없이 작가에게 꽃과 메시지를 보낼 수 있도록 구성합니다.",
   moaBullets: [
     "초대장 링크 유입 주문은 10% 할인",
-    "SAIE 회원가입 완료 시 10% 적립 운영 가능",
+    "SAIE 회원가입 완료 시 10% 적립 예정 금액 표시",
     "작가명, 전시명, 갤러리명이 주문서에 자동 표시",
     "모아 회원 개인정보를 직접 받지 않는 최소 수집 방식",
   ],
   csPhone: "02-000-0000",
   csKakao: "@saie",
   csHours: "평일 10:00-18:00, 전시 오프닝 설치는 별도 상담",
-  paymentStatus:
-    "현재는 PG 키 입력 전 단계입니다. 주문은 접수형으로 운영하고, 실결제 연결 전에는 결제 호출을 하지 않습니다.",
+  paymentStatus: "현재는 PG 키 입력 전 단계입니다. 주문은 접수형으로 운영하고, 실결제 연결 전에는 결제 호출을 하지 않습니다.",
   paymentProvider: "토스페이먼츠",
-  paymentDashboardNote:
-    "PG 연결 후 결제 승인, 취소, 부분 환불, 현금영수증 발행 상태를 관리자에서 확인합니다.",
+  paymentDashboardNote: "PG 연결 후 결제 승인, 취소, 부분 환불, 현금영수증 발행 상태를 관리자에서 확인합니다.",
   discountPolicy: "MOA 초대장 링크 유입 주문은 10% 할인, SAIE 회원가입 완료 시 10% 적립으로 운영합니다.",
   products,
   reviews: [
@@ -231,9 +231,6 @@ function contentHasBrokenEncoding(content: SiteContent) {
     content.benefits.some((item) => hasBrokenEncoding(item.title) || hasBrokenEncoding(item.body)) ||
     content.steps.some((item) => hasBrokenEncoding(item.title) || hasBrokenEncoding(item.body)) ||
     content.moaBullets.some(hasBrokenEncoding) ||
-    content.reviews.some(
-      (review) => hasBrokenEncoding(review.name) || hasBrokenEncoding(review.context) || hasBrokenEncoding(review.body),
-    ) ||
     content.products.some(
       (product) =>
         hasBrokenEncoding(product.name) ||
@@ -242,27 +239,34 @@ function contentHasBrokenEncoding(content: SiteContent) {
         hasBrokenEncoding(product.description) ||
         hasBrokenEncoding(product.occasion) ||
         hasBrokenEncoding(product.flowers) ||
-        hasBrokenEncoding(product.galleryMood) ||
-        product.options?.some((option) => hasBrokenEncoding(option.name) || hasBrokenEncoding(option.description)) ||
-        product.reviews?.some(
-          (review) => hasBrokenEncoding(review.name) || hasBrokenEncoding(review.context) || hasBrokenEncoding(review.body),
-        ),
+        hasBrokenEncoding(product.galleryMood),
     )
   );
 }
 
+function hasLegacyCatalog(content: Partial<SiteContent> | null | undefined) {
+  if (!content?.products?.length) return false;
+  const names = content.products.map((product) => `${product.name} ${product.category} ${product.summary}`).join(" ");
+  return /기관|기업\/기관|그린 오브제|플라워 박스|아티스트 축하 플라워 박스|gallery-opening-bouquet/.test(names);
+}
+
 export function normalizeSiteContent(value: Partial<SiteContent> | null | undefined): SiteContent {
+  if (!value || value.contentVersion !== SITE_CONTENT_VERSION || hasLegacyCatalog(value)) {
+    return defaultSiteContent;
+  }
+
   const base = {
     ...defaultSiteContent,
     ...value,
-    brandName: value?.brandName || defaultSiteContent.brandName,
-    brandKoreanName: value?.brandKoreanName || defaultSiteContent.brandKoreanName,
-    heroStyle: normalizeHeroStyle(value?.heroStyle),
-    benefits: value?.benefits?.length ? value.benefits : defaultSiteContent.benefits,
-    steps: value?.steps?.length ? value.steps : defaultSiteContent.steps,
-    moaBullets: value?.moaBullets?.length ? value.moaBullets : defaultSiteContent.moaBullets,
-    products: value?.products?.length ? value.products : defaultSiteContent.products,
-    reviews: value?.reviews?.length ? value.reviews : defaultSiteContent.reviews,
+    contentVersion: SITE_CONTENT_VERSION,
+    brandName: value.brandName || defaultSiteContent.brandName,
+    brandKoreanName: value.brandKoreanName || defaultSiteContent.brandKoreanName,
+    heroStyle: normalizeHeroStyle(value.heroStyle),
+    benefits: value.benefits?.length ? value.benefits : defaultSiteContent.benefits,
+    steps: value.steps?.length ? value.steps : defaultSiteContent.steps,
+    moaBullets: value.moaBullets?.length ? value.moaBullets : defaultSiteContent.moaBullets,
+    products: value.products?.length ? value.products : defaultSiteContent.products,
+    reviews: value.reviews?.length ? value.reviews : defaultSiteContent.reviews,
   };
 
   if (contentHasBrokenEncoding(base)) {

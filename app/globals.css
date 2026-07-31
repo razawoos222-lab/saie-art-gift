@@ -186,6 +186,50 @@ body { background: #f5f0e8; color: #1d1a16; }
 .small-button.danger:hover { background: #a54c5d; color: #fffaf1; }
 .admin-login-page { min-height: 62vh; display: grid; place-items: center; padding: 54px 0; }
 .admin-login-card { width: min(460px, 100%); }
+.product-card { display: grid; grid-template-rows: 1fr auto; min-height: 100%; }
+.product-card-link { display: grid; grid-template-rows: auto 1fr auto; height: 100%; }
+.product-copy { display: grid; align-content: start; gap: 6px; min-height: 142px; padding: 16px 2px 10px; }
+.product-category { color: #8b8177; font-size: 12px; }
+.product-copy h3 { margin: 0; font-family: var(--font-serif), serif; font-size: 21px; font-weight: 500; line-height: 1.25; }
+.product-copy p { margin: 0; color: #5a5149; font-size: 13px; line-height: 1.65; }
+.product-benefit-price { display: grid; gap: 6px; min-height: 106px; padding: 12px 0; border-top: 1px solid rgb(29 26 22 / 12%); border-bottom: 1px solid rgb(29 26 22 / 12%); }
+.product-benefit-price div { display: flex; justify-content: space-between; gap: 10px; color: #5a5149; font-size: 12px; }
+.product-benefit-price strong { color: #1d1a16; white-space: nowrap; }
+.product-benefit-price div:nth-child(2) strong { color: #9f2f22; }
+.product-benefit-price div:nth-child(3) strong { color: #244434; }
+.curated-card .add-to-cart { width: 100%; margin-top: 12px; }
+.detail-price-box { display: grid; gap: 8px; margin: 20px 0 24px; padding: 16px; border: 1px solid rgb(29 26 22 / 12%); background: #fffdf8; }
+.detail-price-box div { display: flex; justify-content: space-between; gap: 12px; }
+.detail-price-box span { color: #6b6259; font-size: 13px; }
+.detail-price-box strong { font-size: 16px; }
+.detail-price-box div:nth-child(2) strong { color: #9f2f22; }
+.detail-price-box div:nth-child(3) strong { color: #244434; }
+.option-price-list { display: grid; gap: 5px; margin: 12px 0 0; padding-top: 12px; border-top: 1px solid rgb(29 26 22 / 10%); }
+.option-price-list div { display: flex; justify-content: space-between; gap: 10px; padding: 0; }
+.option-price-list dt, .option-price-list dd { margin: 0; font-size: 12px; }
+.option-price-list dt { color: #6b6259; }
+.option-price-list dd { color: #1d1a16; font-weight: 700; }
+.member-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 34px; padding: 54px 0 100px; }
+.member-card h2, .member-side h2, .member-dashboard h2 { margin: 0 0 18px; font-family: var(--font-serif), serif; font-size: 28px; font-weight: 500; }
+.member-side { align-self: start; padding: 28px; border: 1px solid var(--line); background: #fffdf8; }
+.member-side p { color: #4f5a51; }
+.member-policy-list { display: grid; gap: 10px; padding-left: 18px; color: #4f5a51; }
+.member-dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 54px 0 100px; }
+.admin-studio-layout { display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 34px; padding: 54px 0 110px; }
+.admin-preview-column { color: white; }
+.admin-preview { display: grid; gap: 16px; margin: 18px 0; color: #1d1a16; }
+.admin-preview-hero, .admin-preview-products article { overflow: hidden; background: #fffaf1; }
+.admin-preview-hero img { width: 100%; height: 170px; object-fit: cover; filter: saturate(.58); }
+.admin-preview-hero { padding-bottom: 16px; }
+.admin-preview-hero p, .admin-preview-hero h3, .admin-preview-hero span { display: block; margin-right: 14px; margin-left: 14px; }
+.admin-preview-hero p { margin-top: 14px; color: #9f2f22; font-size: 11px; letter-spacing: .14em; }
+.admin-preview-hero h3 { white-space: pre-line; font-family: var(--font-serif), serif; font-size: 28px; font-weight: 500; line-height: 1.2; }
+.admin-preview-products { display: grid; gap: 10px; }
+.admin-preview-products article { display: grid; grid-template-columns: 72px 1fr; gap: 10px; padding: 10px; }
+.admin-preview-products img { grid-row: span 4; width: 72px; aspect-ratio: 1; object-fit: cover; filter: saturate(.58); }
+.admin-preview-products strong, .admin-preview-products small, .admin-preview-products em, .admin-preview-products span { display: block; min-width: 0; font-size: 12px; }
+.admin-preview-products em { color: #9f2f22; font-style: normal; font-weight: 700; }
+.admin-preview-products span { color: #244434; font-weight: 700; }
 
 @media (max-width: 900px) {
   .art-hero, .art-info-band { grid-template-columns: 1fr; }
@@ -194,6 +238,10 @@ body { background: #f5f0e8; color: #1d1a16; }
   .benefit-grid, .phone-grid, .artist-gift-grid, .product-option-grid, .home-review-grid { grid-template-columns: 1fr 1fr; }
   .benefit-grid article:nth-child(odd) { border-left: 0; }
   .integration-box { padding-left: 0; border-left: 0; border-top: 1px solid rgb(29 26 22 / 10%); padding-top: 26px; }
+}
+
+@media (max-width: 900px) {
+  .member-layout, .member-dashboard, .admin-studio-layout { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {
@@ -427,6 +475,8 @@ body { background: #f5f0e8; color: #1d1a16; }
     gap: 10px;
     padding-top: 12px;
   }
+  .product-copy { min-height: auto; }
+  .product-benefit-price { min-height: auto; }
   .product-meta h3 {
     font-size: 21px;
   }

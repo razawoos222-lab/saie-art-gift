@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { displayPrice, formatPrice, salePrice, type Product } from "../lib/products";
+import { displayPrice, formatPrice, inviteSalePrice, pointAmount, type Product } from "../lib/products";
 import { useCart } from "./CartContext";
 import { useMoaInvite } from "./useMoaInvite";
 
@@ -10,7 +10,8 @@ export function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
   const { addItem } = useCart();
   const { withInvite } = useMoaInvite();
-  const finalPrice = salePrice(product);
+  const sale = inviteSalePrice(product);
+  const points = pointAmount(sale);
 
   function chooseGift() {
     addItem(product);
@@ -19,27 +20,29 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="product-card curated-card">
-      <Link href={withInvite(`/products/${product.slug}`)}>
+      <Link href={withInvite(`/products/${product.slug}`)} className="product-card-link">
         <div className="product-image">
           <img src={product.image} alt={product.name} />
           {product.tag && <span className="tag">{product.tag}</span>}
         </div>
-        <div className="product-meta">
+        <div className="product-copy">
+          <span className="product-category">{product.category}</span>
+          <h3>{product.name}</h3>
+          <p>{product.summary}</p>
+        </div>
+        <div className="product-benefit-price">
           <div>
-            <h3>{product.name}</h3>
-            <p>{product.summary}</p>
+            <span>정가</span>
+            <strong>{displayPrice(product)}</strong>
           </div>
-          <span className="price">
-            {product.discountPercent ? (
-              <>
-                <small>{product.discountPercent}% benefit</small>
-                <del>{displayPrice(product)}</del>
-                {formatPrice(finalPrice)} ~
-              </>
-            ) : (
-              displayPrice(product)
-            )}
-          </span>
+          <div>
+            <span>MOA 10% 할인가</span>
+            <strong>{formatPrice(sale)} ~</strong>
+          </div>
+          <div>
+            <span>SAIE 가입 적립</span>
+            <strong>{formatPrice(points)}</strong>
+          </div>
         </div>
       </Link>
       <button className="add-to-cart" type="button" onClick={chooseGift}>
