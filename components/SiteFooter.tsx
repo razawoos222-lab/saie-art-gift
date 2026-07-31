@@ -5,15 +5,14 @@ export function SiteFooter() {
     <footer className="site-footer art-footer">
       <div className="footer-inner">
         <div>
-          <p className="footer-title">saie design studio</p>
-          <p>The Art of Composition. 작가의 순간에, 꽃으로 남기는 축하.</p>
+          <p className="footer-title">saie artist gift</p>
+          <p>MOA 초대장에서 이어지는 갤러리 전용 플라워 기프트.</p>
         </div>
         <div className="footer-links">
-          <Link href="/products">Lineup</Link>
-          <Link href="/checkout">Gift</Link>
-          <Link href="/order-lookup">Order Lookup</Link>
+          <Link href="/gift">꽃 선택</Link>
+          <Link href="/order-lookup">주문조회</Link>
           <Link href="/faq">FAQ</Link>
-          <Link href="/policy/privacy">Privacy</Link>
+          <Link href="/policy/privacy">개인정보</Link>
         </div>
       </div>
     </footer>

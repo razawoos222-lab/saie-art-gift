@@ -12,12 +12,15 @@ export function HomeExperience() {
     <main className="art-gift">
       <section className="art-hero">
         <div className="art-hero-copy">
-          <p className="art-kicker">{content.heroEyebrow}</p>
-          <h1>{content.heroTitle}</h1>
-          <strong>{content.serviceSubtitle}</strong>
-          <p>{content.heroBody}</p>
-          <Link className="art-button" href="/products?gift=artist">
-            {content.ctaLabel}
+          <p className="art-kicker">MOA × SAIE</p>
+          <h1>saie artist gift</h1>
+          <strong>모아 초대장에서 이어지는 갤러리 전용 꽃선물</strong>
+          <p>
+            전시 초대장을 받은 분이 작가에게 꽃과 메시지를 보낼 수 있는 모바일 전용 주문 화면입니다. 작가, 전시,
+            갤러리 정보는 주문서까지 이어집니다.
+          </p>
+          <Link className="art-button" href="/gift">
+            꽃 선택하기
           </Link>
         </div>
         <div className="art-hero-image">
@@ -28,7 +31,7 @@ export function HomeExperience() {
       <section className="art-benefit-panel">
         <div className="benefit-title">
           <span />
-          <strong>{content.benefitsTitle}</strong>
+          <strong>초대장에서 바로 이어지는 주문</strong>
           <span />
         </div>
         <div className="benefit-grid">
@@ -44,7 +47,7 @@ export function HomeExperience() {
       <section className="phone-flow">
         <div className="flow-title">
           <span />
-          <h2>{content.stepsTitle}</h2>
+          <h2>작가에게 꽃을 보내는 4단계</h2>
           <span />
         </div>
         <div className="phone-grid">
@@ -53,11 +56,11 @@ export function HomeExperience() {
               <div className="phone-frame">
                 {index === 0 && (
                   <div className="phone-screen invite-screen">
-                    <p>Invitation</p>
+                    <p>MOA Invitation</p>
                     <h3>시간의 결</h3>
                     <span>by Artist Kim</span>
                     <small>Gallery MOA</small>
-                    <button>{content.ctaLabel}</button>
+                    <button>작가에게 꽃선물하기</button>
                   </div>
                 )}
                 {index === 1 && featured && (
@@ -66,7 +69,7 @@ export function HomeExperience() {
                     <h3>{featured.name}</h3>
                     <p>{featured.summary}</p>
                     <strong>{displayPrice(featured)}</strong>
-                    <button>선택하기</button>
+                    <button>이 꽃 선택하기</button>
                   </div>
                 )}
                 {index === 2 && (
@@ -88,27 +91,27 @@ export function HomeExperience() {
                     </dl>
                     <label>메시지 카드</label>
                     <p className="textarea">전시 오픈을 진심으로 축하드립니다.</p>
-                    <button>다음</button>
+                    <button>메시지 작성</button>
                   </div>
                 )}
                 {index === 3 && featured && (
                   <div className="phone-screen pay-screen">
-                    <h3>주문하기</h3>
+                    <h3>주문 접수</h3>
                     <dl>
                       <div>
                         <dt>상품</dt>
                         <dd>{featured.name}</dd>
                       </div>
                       <div>
-                        <dt>금액</dt>
-                        <dd>{displayPrice(featured)}</dd>
+                        <dt>전시</dt>
+                        <dd>시간의 결</dd>
                       </div>
                       <div>
-                        <dt>혜택</dt>
-                        <dd>모아 회원 10%</dd>
+                        <dt>상태</dt>
+                        <dd>제작 확인 대기</dd>
                       </div>
                     </dl>
-                    <button>주문 접수</button>
+                    <button>주문 접수하기</button>
                   </div>
                 )}
               </div>
@@ -122,19 +125,19 @@ export function HomeExperience() {
 
       <section className="art-info-band">
         <div className="integration-box">
-          <h2>{content.integrationTitle}</h2>
+          <h2>모아 초대장 링크 연동</h2>
           <div className="integration-chain">
             <span>MOA</span>
             <i />
             <strong>SAIE</strong>
             <i />
-            <span>GALLERY</span>
+            <span>ORDER</span>
           </div>
-          <p>{content.integrationBody}</p>
-          <small>{content.integrationPrivacyNote}</small>
+          <p>모아 초대장의 버튼 링크에 작가명, 전시명, 갤러리명, 전시일, 초대장 ID를 담아 SAIE `/gift`로 연결합니다.</p>
+          <small>실제 API 연동 전에는 URL 정보로 주문 흐름을 완성하고, 이후 inviteId 기반 조회로 고도화합니다.</small>
         </div>
         <div className="lineup-box">
-          <h2>플라워 라인업</h2>
+          <h2>꽃 선택</h2>
           <div className="lineup-grid">
             {content.products.map((product) => (
               <Link href={`/products/${product.slug}`} key={product.slug}>
@@ -148,8 +151,8 @@ export function HomeExperience() {
       </section>
 
       <section className="art-closing">
-        <h2>saie design studio</h2>
-        <p>The Art of Composition</p>
+        <h2>saie artist gift</h2>
+        <p>For the artist, from the invitation.</p>
       </section>
     </main>
   );

@@ -8,10 +8,10 @@ export default function GiftPage() {
         <section className="page-intro art-page-intro moa-gift-intro">
           <div className="container">
             <p className="eyebrow">MOA × SAIE</p>
-            <h1 className="display">작가에게 꽃선물하기</h1>
+            <h1 className="display">전시에 어울리는 꽃을 선택해 주세요.</h1>
             <p>
-              모아 모바일초대장에서 연결된 전시 정보가 상품 선택과 주문서까지 이어집니다. 전시 공간에 맞는 플라워를
-              선택하고 메시지를 남겨주세요.
+              모아 초대장에서 전달된 작가, 전시, 갤러리 정보가 주문서까지 이어집니다. 꽃을 고르고 작가에게 전할
+              메시지만 남기면 주문 접수가 완료됩니다.
             </p>
           </div>
         </section>

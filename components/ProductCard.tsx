@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
       <button className="add-to-cart" type="button" onClick={chooseGift}>
-        선택하고 주문서 작성
+        이 꽃 선택하기
       </button>
     </article>
   );
